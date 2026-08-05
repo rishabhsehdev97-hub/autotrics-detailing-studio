@@ -1,0 +1,6 @@
+{
+  "name": "AUTOTRICS DETAILING STUDIO",
+  "description": "Luxury automotive detailing application with AI quotes, garage management, concierge booking, digital warranty vault, and studio admin dashboard.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
