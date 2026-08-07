@@ -37,9 +37,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
 
   <div className="relative z-10 p-8">
 
-    <div className="inline-flex rounded-full border border-cyan-400/40 bg-cyan-500/10 px-4 py-2 text-xs font-bold tracking-widest text-cyan-300 uppercase">
-      AUTOTRICS PREMIUM
-    </div>
+    
 
     <h1 className="mt-6 text-5xl font-black leading-tight text-white">
       Protect Your Car
@@ -107,12 +105,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
           "Sub-micron clearcoat swirls detected on hood panels. Recommended: Stage 2 Correction + 9H Graphene Matrix Shield to maintain 100% optical depth."
         </p>
 
-        <div className="mt-3 flex items-center justify-between pt-2 border-t border-[#00C2FF]/20 text-[11px] font-mono">
-          <span className="text-slate-400">Est. Time: 18h • 10-Yr Warranty</span>
-          <span className="text-[#00C2FF] font-bold group-hover:underline flex items-center gap-1">
-            Run Custom AI Scan <ArrowUpRight className="w-3 h-3" />
-          </span>
-        </div>
+        
       </div>
 
       {/* 3. RECENT VEHICLES IN GARAGE */}
