@@ -1,4 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+
+import {
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
+
+import { auth } from "../lib/firebase";
+
+
+
 import { Shield, Fingerprint, Lock, Mail, Phone, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { ScreenId } from '../types';
 
@@ -17,6 +27,20 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onNavigate }) => {
       onNavigate('home');
     }, 1200);
   };
+  const handleGoogleLogin = async () => {
+  try {
+    const provider = new GoogleAuthProvider();
+
+    const result = await signInWithPopup(auth, provider);
+
+    console.log("Logged in:", result.user);
+
+    onNavigate("home");
+  } catch (error) {
+    console.error("Google Sign In Error:", error);
+    alert("Google Sign-In failed.");
+  }
+};
 
   const handleLoginSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -140,7 +164,15 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onNavigate }) => {
             </>
           )}
         </button>
+        
       </div>
+<button
+  onClick={handleGoogleLogin}
+  className="w-full mt-4 py-4 rounded-2xl bg-white text-black font-bold hover:bg-gray-100 transition"
+>
+  Continue with Google
+</button>
+
 
       {/* Footer Disclaimer */}
       <p className="text-[10px] text-slate-500 text-center font-mono">

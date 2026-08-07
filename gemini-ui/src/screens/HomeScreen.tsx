@@ -25,53 +25,55 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
     <div className="w-full space-y-6 pb-24 px-4 pt-3">
       
       {/* 1. HERO BANNER */}
-      <div className="relative w-full rounded-3xl overflow-hidden glass-card border border-white/15 p-5 sm:p-6 shadow-2xl">
-        {/* Background Image with Ambient Glow */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center opacity-40 mix-blend-luminosity filter saturate-150"
-          style={{ backgroundImage: `url('https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80')` }}
-          referrerPolicy="no-referrer"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent pointer-events-none" />
 
-        <div className="relative z-10 max-w-md space-y-3">
-          {/* Live Studio Badge */}
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#00C2FF]/15 border border-[#00C2FF]/40 text-[#00C2FF] text-[10px] font-mono font-bold tracking-widest uppercase glow-cyan-sm">
-            <span className="w-2 h-2 rounded-full bg-[#00C2FF] animate-pulse" />
-            STUDIO BAYS OPEN • 4 INFRARED CURING BAYS ACTIVE
-          </div>
+<div className="relative overflow-hidden rounded-3xl border border-cyan-500/30 bg-[#0B0F14]">
 
-          <h1 className="font-heading font-extrabold text-2xl sm:text-3xl text-white tracking-wide leading-tight">
-            THE APEX OF <br />
-            <span className="text-gradient-cyan">PAINT PRESERVATION</span>
-          </h1>
+  <img
+    src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1200&q=80"
+    className="absolute inset-0 w-full h-full object-cover opacity-30"
+  />
 
-          <p className="text-slate-300 text-xs leading-relaxed font-light max-w-xs">
-            Computer-cut self-healing TPU armor, 9H reduced graphene oxide matrices, and optical polish.
-          </p>
+  <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent" />
 
-          <div className="pt-2 flex items-center gap-3">
-            <button
-              id="hero-quick-book-btn"
-              onClick={() => onNavigate('booking')}
-              className="px-5 py-3 rounded-2xl bg-[#00C2FF] hover:bg-cyan-400 text-black font-heading font-bold text-xs tracking-wider uppercase flex items-center gap-2 shadow-[0_0_20px_rgba(0,194,255,0.4)] transition-all"
-            >
-              <Calendar className="w-4 h-4" />
-              <span>Quick Booking</span>
-            </button>
+  <div className="relative z-10 p-8">
 
-            <button
-              id="hero-ai-scan-btn"
-              onClick={() => onNavigate('ai-quote')}
-              className="px-4 py-3 rounded-2xl glass-panel hover:bg-white/10 border border-white/20 text-white font-heading font-semibold text-xs tracking-wider uppercase flex items-center gap-1.5 transition-all"
-            >
-              <Sparkles className="w-3.5 h-3.5 text-[#00C2FF]" />
-              <span>AI Quote</span>
-            </button>
-          </div>
-        </div>
-      </div>
+    <div className="inline-flex rounded-full border border-cyan-400/40 bg-cyan-500/10 px-4 py-2 text-xs font-bold tracking-widest text-cyan-300 uppercase">
+      AUTOTRICS PREMIUM
+    </div>
 
+    <h1 className="mt-6 text-5xl font-black leading-tight text-white">
+      Protect Your Car
+      <br />
+      <span className="text-cyan-400">
+        With Premium PPF
+      </span>
+    </h1>
+
+    <p className="mt-5 max-w-xl text-slate-300">
+      Paint Protection Film • Ceramic Coating • Detailing • Car Spa
+    </p>
+
+    <div className="mt-8 flex gap-4">
+
+      <button
+        onClick={() => onNavigate("booking")}
+        className="rounded-2xl bg-cyan-400 px-8 py-4 font-bold text-black hover:bg-cyan-300"
+      >
+        Book Now
+      </button>
+
+      <button
+        onClick={() => onNavigate("ai-quote")}
+        className="rounded-2xl border border-cyan-400 px-8 py-4 font-bold text-cyan-400 hover:bg-cyan-400/10"
+      >
+        Get AI Quote
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
       {/* 2. AI RECOMMENDATION CARD */}
       <div 
         id="home-ai-recommendation-card"

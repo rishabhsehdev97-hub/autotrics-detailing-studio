@@ -23,7 +23,7 @@ import { NotificationsScreen } from './screens/NotificationsScreen';
 import { AdminDashboardScreen } from './screens/AdminDashboardScreen';
 
 export default function App() {
-  const [currentScreen, setCurrentScreen] = useState<ScreenId>('home');
+  const [currentScreen, setCurrentScreen] = useState<ScreenId>('login');
   const [vehicles, setVehicles] = useState<Vehicle[]>(INITIAL_VEHICLES);
   const [selectedVehicle, setSelectedVehicle] = useState<Vehicle>(INITIAL_VEHICLES[0]);
   const [selectedService, setSelectedService] = useState<DetailService | undefined>(undefined);
