@@ -69,23 +69,45 @@ export const INITIAL_VEHICLES: Vehicle[] = [
 
 export const PREMIUM_SERVICES: DetailService[] = [
   {
-    id: 'serv-ppf',
-    name: 'Paint Protection Film (PPF)',
-    tagline: 'Self-Healing 10-Mil TPU Clear Armor',
-    price: 3499,
-    durationHours: 24,
-    warrantyYears: 10,
-    category: 'Protection',
-    description: 'Computer-cut precision 10-mil thermoplastic polyurethane film with self-healing topcoat against rock chips, highway debris, and deep scratches.',
-    imageUrl: 'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=800&q=80',
-    popular: true,
-    features: [
-      'Self-healing nano coating',
-      'Optical zero-orange-peel transparency',
-      '10-Year non-yellowing warranty',
-      'Edge wrapping around all body panels'
-    ]
-  },
+    
+  id: 'serv-ppf',
+  name: 'Garware PLUS PPF',
+  tagline: '200 Micron TPU Self-Healing PPF',
+  price: 68000,
+  durationHours: 24,
+  warrantyYears: 5,
+  category: 'Protection',
+
+  description:
+    'Garware PLUS 200 Micron TPU self-healing Paint Protection Film with 5-year warranty, hydrophobic protection and long-term maintenance support.',
+
+  imageUrl:
+    'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=800&q=80',
+
+  popular: true,
+
+  features: [
+    '200 Micron TPU Self-Healing PPF',
+    '5-Year Warranty',
+    'E-Warranty registered on vehicle',
+    'Self Healing',
+    'Anti Yellowing',
+    'Hydrophobic',
+    'Non Cracking',
+    'Non Lining',
+    'Non Bubbling',
+    'PPF Coating included',
+    'Exterior Detailing included',
+    'Interior Deep Cleaning included',
+    'Underbody Coating included',
+    'Alloy Coating included',
+    'Glass Coating included',
+    'Foam Wash included',
+    'Headlamp & Taillamp Coating included',
+    'Maintenance every 6 months for 5 years',
+    'USA & Italy sourced products'
+  ]
+},
   {
     id: 'serv-ceramic',
     name: 'Ceramic Coating',

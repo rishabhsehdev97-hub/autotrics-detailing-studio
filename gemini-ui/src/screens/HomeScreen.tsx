@@ -398,9 +398,9 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
         key={serv.id}
         id={`service-card-${serv.id}`}
         onClick={() => {
-          onSelectService(serv);
-          onNavigate('booking');
-        }}
+  onSelectService(serv);
+  onNavigate('service-details');
+}}
         className="
           group
           min-h-[165px]

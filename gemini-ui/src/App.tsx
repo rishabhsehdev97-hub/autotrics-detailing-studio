@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { BookingsScreen } from './screens/BookingsScreen';
+import ServiceDetailsScreen from './screens/ServiceDetailsScreen';
 
 import {
   ScreenId,
@@ -273,6 +274,26 @@ export default function App() {
       // BOOKING
       // -------------------------------------------------
 
+case 'service-details':
+  if (!selectedService) {
+    return (
+      <HomeScreen
+        vehicles={vehicles}
+        onNavigate={handleNavigate}
+        onSelectService={(serv) => setSelectedService(serv)}
+        onSelectVehicle={(veh) => setSelectedVehicle(veh)}
+      />
+    );
+  }
+
+  return (
+    <ServiceDetailsScreen
+      service={selectedService}
+      onNavigate={handleNavigate}
+      onBookService={() => handleNavigate('booking')}
+    />
+  );
+
       case 'booking':
 
         return (
@@ -332,7 +353,7 @@ export default function App() {
             onNavigate={handleNavigate}
           />
         );
-        case 'bookings':
+        case 'booking':
 
   return (
     <BookingsScreen
@@ -438,7 +459,10 @@ export default function App() {
 
   return (
 
-    <MobileFrame>
+    <MobileFrame
+  currentScreen={currentScreen}
+  onNavigate={handleNavigate}
+>
 
       <main className="w-full">
 

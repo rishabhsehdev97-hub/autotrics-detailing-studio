@@ -1,4 +1,4 @@
-export type ScreenId = 
+export type ScreenId =
   | 'splash'
   | 'onboarding'
   | 'login'
@@ -9,15 +9,22 @@ export type ScreenId =
   | 'garage'
   | 'booking'
   | 'payment'
-  'booking-confirmation'
-  | 'bookings'
+  | 'booking-confirmation'
+  | 'service-details'
   | 'warranty'
   | 'profile'
   | 'settings'
   | 'notifications'
   | 'admin';
 
-export type FinishType = 'Gloss' | 'Satin Matte' | 'Stealth Matte' | 'Carbon Fiber' | 'Raw Metal';
+
+export type FinishType =
+  | 'Gloss'
+  | 'Satin Matte'
+  | 'Stealth Matte'
+  | 'Carbon Fiber'
+  | 'Raw Metal';
+
 
 export interface Vehicle {
   id: string;
@@ -33,8 +40,13 @@ export interface Vehicle {
   protectionType: string;
   protectionExpires: string;
   lastServiceDate: string;
-  status: 'Protected' | 'Due for Inspection' | 'In Studio' | 'Pending Treatment';
+  status:
+    | 'Protected'
+    | 'Due for Inspection'
+    | 'In Studio'
+    | 'Pending Treatment';
 }
+
 
 export interface DetailService {
   id: string;
@@ -43,12 +55,17 @@ export interface DetailService {
   price: number;
   durationHours: number;
   warrantyYears: number;
-  category: 'Protection' | 'Correction' | 'Detailing' | 'Maintenance';
+  category:
+    | 'Protection'
+    | 'Correction'
+    | 'Detailing'
+    | 'Maintenance';
   description: string;
   imageUrl: string;
   popular?: boolean;
   features: string[];
 }
+
 
 export interface AiQuoteResult {
   paintHealthScore: number;
@@ -62,17 +79,19 @@ export interface AiQuoteResult {
   aiTechnicianNote: string;
 }
 
+
 export interface BookingDetails {
-  // Customer details
+  vehicleId?: string;
+
+  // Customer
   customerName: string;
   customerPhone: string;
   customerEmail: string;
 
-  // Vehicle details
-  vehicleId?: string;
+  // Vehicle
+  vehicleYear: number;
   vehicleMake: string;
   vehicleModel: string;
-  vehicleYear: number;
   vehicleRegistration: string;
   vehicleColor: string;
 
@@ -80,22 +99,24 @@ export interface BookingDetails {
   serviceIds: string[];
   addonIds: string[];
 
-  // Appointment
+  // Delivery
   deliveryMethod:
     | 'Studio Drop-off'
     | 'Valet Enclosed Transport'
     | 'On-Site Concierge';
 
+  // Appointment
   date: string;
   timeSlot: string;
 
-  // Valet / additional information
+  // Optional information
   valetAddress?: string;
   specialInstructions?: string;
 
-  // Final amount
+  // Payment
   totalAmount: number;
 }
+
 
 export interface WarrantyCertificate {
   id: string;
@@ -107,10 +128,14 @@ export interface WarrantyCertificate {
   expiryDate: string;
   warrantyYears: number;
   installerTechnician: string;
-  status: 'Active' | 'Inspected' | 'Pending Inspection';
+  status:
+    | 'Active'
+    | 'Inspected'
+    | 'Pending Inspection';
   qrCodeUrl: string;
   hydrophobicScore: string;
 }
+
 
 export interface NotificationItem {
   id: string;
@@ -118,9 +143,14 @@ export interface NotificationItem {
   message: string;
   time: string;
   unread: boolean;
-  type: 'status' | 'offer' | 'warranty' | 'system';
+  type:
+    | 'status'
+    | 'offer'
+    | 'warranty'
+    | 'system';
   vehicleImage?: string;
 }
+
 
 export interface StudioBay {
   id: number;
@@ -130,5 +160,9 @@ export interface StudioBay {
   progressPercent: number;
   technician: string;
   estimatedCompletion: string;
-  status: 'Active' | 'Infrared Curing' | 'Wash Bay' | 'QC Inspection';
+  status:
+    | 'Active'
+    | 'Infrared Curing'
+    | 'Wash Bay'
+    | 'QC Inspection';
 }

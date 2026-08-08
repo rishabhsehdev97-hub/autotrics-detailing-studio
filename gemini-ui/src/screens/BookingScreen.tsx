@@ -213,6 +213,8 @@ export const BookingScreen: React.FC<BookingScreenProps> = ({
     }
 
     const details: BookingDetails = {
+
+      
       customerName: customerName.trim(),
       customerPhone: customerPhone.trim(),
       customerEmail: customerEmail.trim(),
