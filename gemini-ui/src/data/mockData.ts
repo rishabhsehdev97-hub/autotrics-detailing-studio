@@ -3,46 +3,336 @@ import { Vehicle, DetailService, WarrantyCertificate, NotificationItem, StudioBa
 export const INITIAL_VEHICLES: Vehicle[] = [];
 
 export const PREMIUM_SERVICES: DetailService[] = [
+  // =====================================================
+  // PPF PACKAGES
+  // =====================================================
+
   {
-    
-  id: 'serv-ppf',
-  name: 'Garware PLUS PPF',
-  tagline: '200 Micron TPU Self-Healing PPF',
-  price: 68000,
-  durationHours: 24,
-  warrantyYears: 5,
-  category: 'Protection',
+    id: 'serv-cosmo-silver',
+    name: 'Cosmo Silver PPF',
+    tagline: '175 Micron TPU Self-Healing PPF',
+    price: 47000,
+    durationHours: 24,
+    warrantyYears: 3,
+    category: 'Protection',
+    description:
+      'Cosmo Silver 175 Micron TPU Self-Healing Paint Protection Film with 3-year warranty, hydrophobic protection and maintenance every 6 months for 3 years.',
+    imageUrl:
+      'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=800&q=80',
+    popular: false,
+    features: [
+      '175 Micron TPU Self-Healing PPF',
+      '3-Year Warranty',
+      'Self Healing',
+      'Anti Yellowing',
+      'Hydrophobic',
+      'Non Cracking',
+      'Non Lining',
+      'Non Bubbling',
+      'PPF Coating included',
+      'Underbody Coating included',
+      'Exterior Detailing included',
+      'Interior Deep Cleaning included',
+      'Alloy Coating included',
+      'Glass Coating included',
+      'Foam Wash included',
+      'Headlamp & Taillamp Coating included',
+      'Maintenance every 6 months for 3 years',
+      'USA & Italy sourced products',
+    ],
+  },
 
-  description:
-    'Garware PLUS 200 Micron TPU self-healing Paint Protection Film with 5-year warranty, hydrophobic protection and long-term maintenance support.',
+  {
+    id: 'serv-uc-pro-plus',
+    name: 'UC Pro+ PPF',
+    tagline: '190 Micron Korean TPU Self-Healing PPF',
+    price: 54000,
+    durationHours: 24,
+    warrantyYears: 7,
+    category: 'Protection',
+    description:
+      'UC Pro+ 190 Micron TPU Self-Healing Paint Protection Film made in Korea with 7-year warranty and maintenance every 6 months for 7 years.',
+    imageUrl:
+      'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=800&q=80',
+    popular: true,
+    features: [
+      '190 Micron TPU Self-Healing PPF',
+      'Made in Korea',
+      '7-Year Warranty',
+      'Self Healing',
+      'Anti Yellowing',
+      'Hydrophobic',
+      'Non Cracking',
+      'Non Lining',
+      'Non Bubbling',
+      'PPF Coating included',
+      'Underbody Coating included',
+      'Exterior Detailing included',
+      'Interior Deep Cleaning included',
+      'Alloy Coating included',
+      'Glass Coating included',
+      'Foam Wash included',
+      'Headlamp & Taillamp Coating included',
+      'Maintenance every 6 months for 7 years',
+      'USA & Italy sourced products',
+    ],
+  },
 
-  imageUrl:
-    'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=800&q=80',
+  {
+    id: 'serv-cosmo-gold',
+    name: 'Cosmo Gold PPF',
+    tagline: '190 Micron TPU Self-Healing PPF',
+    price: 62000,
+    durationHours: 24,
+    warrantyYears: 5,
+    category: 'Protection',
+    description:
+      'Cosmo Gold 190 Micron TPU Self-Healing Paint Protection Film with 5-year warranty, hydrophobic protection and maintenance every 6 months for 5 years.',
+    imageUrl:
+      'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=800&q=80',
+    popular: false,
+    features: [
+      '190 Micron TPU Self-Healing PPF',
+      '5-Year Warranty',
+      'Self Healing',
+      'Anti Yellowing',
+      'Hydrophobic',
+      'Non Cracking',
+      'Non Lining',
+      'Non Bubbling',
+      'PPF Coating included',
+      'Underbody Coating included',
+      'Exterior Detailing included',
+      'Interior Deep Cleaning included',
+      'Alloy Coating included',
+      'Glass Coating included',
+      'Foam Wash included',
+      'Headlamp & Taillamp Coating included',
+      'Maintenance every 6 months for 5 years',
+      'USA & Italy sourced products',
+    ],
+  },
 
-  popular: true,
+  {
+    id: 'serv-garware-180',
+    name: 'Garware Plus PPF',
+    tagline: '180 Micron TPU Self-Healing PPF',
+    price: 62000,
+    durationHours: 24,
+    warrantyYears: 5,
+    category: 'Protection',
+    description:
+      'Garware Plus 180 Micron TPU Self-Healing Paint Protection Film with 5-year warranty and maintenance every 6 months for 5 years.',
+    imageUrl:
+      'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=800&q=80',
+    popular: false,
+    features: [
+      '180 Micron TPU Self-Healing PPF',
+      '5-Year Warranty',
+      'Self Healing',
+      'Anti Yellowing',
+      'Hydrophobic',
+      'Non Cracking',
+      'Non Lining',
+      'Non Bubbling',
+      'PPF Coating included',
+      'Underbody Coating included',
+      'Exterior Detailing included',
+      'Interior Deep Cleaning included',
+      'Alloy Coating included',
+      'Glass Coating included',
+      'Foam Wash included',
+      'Headlamp & Taillamp Coating included',
+      'Maintenance every 6 months for 5 years',
+      'USA & Italy sourced products',
+    ],
+  },
 
-  features: [
-    '200 Micron TPU Self-Healing PPF',
-    '5-Year Warranty',
-    'E-Warranty registered on vehicle',
-    'Self Healing',
-    'Anti Yellowing',
-    'Hydrophobic',
-    'Non Cracking',
-    'Non Lining',
-    'Non Bubbling',
-    'PPF Coating included',
-    'Exterior Detailing included',
-    'Interior Deep Cleaning included',
-    'Underbody Coating included',
-    'Alloy Coating included',
-    'Glass Coating included',
-    'Foam Wash included',
-    'Headlamp & Taillamp Coating included',
-    'Maintenance every 6 months for 5 years',
-    'USA & Italy sourced products'
-  ]
-},
+  {
+    id: 'serv-uc-gloss-black',
+    name: 'UC Gloss Black PPF',
+    tagline: '190 Micron Korean TPU Self-Healing Gloss Black PPF',
+    price: 64000,
+    durationHours: 24,
+    warrantyYears: 5,
+    category: 'Protection',
+    description:
+      'UC Gloss Black 190 Micron TPU Self-Healing PPF made in Korea with 5-year warranty and maintenance every 6 months for 5 years.',
+    imageUrl:
+      'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=800&q=80',
+    popular: false,
+    features: [
+      '190 Micron TPU Self-Healing PPF',
+      'Made in Korea',
+      'Gloss Black Finish',
+      '5-Year Warranty',
+      'Self Healing',
+      'Anti Yellowing',
+      'Hydrophobic',
+      'Non Cracking',
+      'Non Lining',
+      'Non Bubbling',
+      'PPF Coating included',
+      'Underbody Coating included',
+      'Exterior Detailing included',
+      'Interior Deep Cleaning included',
+      'Alloy Coating included',
+      'Glass Coating included',
+      'Foam Wash included',
+      'Headlamp & Taillamp Coating included',
+      'Maintenance every 6 months for 5 years',
+      'USA & Italy sourced products',
+    ],
+  },
+
+  {
+    id: 'serv-uc-matte-black',
+    name: 'UC Matte Black PPF',
+    tagline: '190 Micron Korean TPU Self-Healing Matte Black PPF',
+    price: 64000,
+    durationHours: 24,
+    warrantyYears: 5,
+    category: 'Protection',
+    description:
+      'UC Matte Black 190 Micron TPU Self-Healing PPF made in Korea with 5-year warranty and maintenance every 6 months for 5 years.',
+    imageUrl:
+      'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=800&q=80',
+    popular: false,
+    features: [
+      '190 Micron TPU Self-Healing PPF',
+      'Made in Korea',
+      'Matte Black Finish',
+      '5-Year Warranty',
+      'Self Healing',
+      'Anti Yellowing',
+      'Hydrophobic',
+      'Non Cracking',
+      'Non Lining',
+      'Non Bubbling',
+      'PPF Coating included',
+      'Underbody Coating included',
+      'Exterior Detailing included',
+      'Interior Deep Cleaning included',
+      'Alloy Coating included',
+      'Glass Coating included',
+      'Foam Wash included',
+      'Headlamp & Taillamp Coating included',
+      'Maintenance every 6 months for 5 years',
+      'USA & Italy sourced products',
+    ],
+  },
+
+  {
+    id: 'serv-garware-200',
+    name: 'Garware PLUS PPF',
+    tagline: '200 Micron TPU Self-Healing PPF',
+    price: 68000,
+    durationHours: 24,
+    warrantyYears: 5,
+    category: 'Protection',
+    description:
+      'Garware PLUS 200 Micron TPU Self-Healing Paint Protection Film with 5-year warranty and maintenance every 6 months for 5 years.',
+    imageUrl:
+      'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=800&q=80',
+    popular: true,
+    features: [
+      '200 Micron TPU Self-Healing PPF',
+      '5-Year Warranty',
+      'E-Warranty registered on vehicle',
+      'Self Healing',
+      'Anti Yellowing',
+      'Hydrophobic',
+      'Non Cracking',
+      'Non Lining',
+      'Non Bubbling',
+      'PPF Coating included',
+      'Underbody Coating included',
+      'Exterior Detailing included',
+      'Interior Deep Cleaning included',
+      'Alloy Coating included',
+      'Glass Coating included',
+      'Foam Wash included',
+      'Headlamp & Taillamp Coating included',
+      'Maintenance every 6 months for 5 years',
+      'USA & Italy sourced products',
+    ],
+  },
+
+  {
+    id: 'serv-uc-max',
+    name: 'UC Max PPF',
+    tagline: '190 Micron Korean TPU Self-Healing PPF',
+    price: 70000,
+    durationHours: 24,
+    warrantyYears: 10,
+    category: 'Protection',
+    description:
+      'UC Max 190 Micron TPU Self-Healing Paint Protection Film made in Korea with 10-year warranty and maintenance every 6 months for 10 years.',
+    imageUrl:
+      'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=800&q=80',
+    popular: true,
+    features: [
+      '190 Micron TPU Self-Healing PPF',
+      'Made in Korea',
+      '10-Year Warranty',
+      'Self Healing',
+      'Anti Yellowing',
+      'Hydrophobic',
+      'Non Cracking',
+      'Non Lining',
+      'Non Bubbling',
+      'PPF Coating included',
+      'Underbody Coating included',
+      'Exterior Detailing included',
+      'Interior Deep Cleaning included',
+      'Alloy Coating included',
+      'Glass Coating included',
+      'Foam Wash included',
+      'Headlamp & Taillamp Coating included',
+      'Maintenance every 6 months for 10 years',
+      'USA & Italy sourced products',
+    ],
+  },
+
+  {
+    id: 'serv-cosmo-platinum',
+    name: 'Cosmo Platinum PPF',
+    tagline: '230 Micron TPU Self-Healing PPF',
+    price: 95000,
+    durationHours: 24,
+    warrantyYears: 15,
+    category: 'Protection',
+    description:
+      'Cosmo Platinum 230 Micron TPU Self-Healing Paint Protection Film with 15-year warranty, hydrophobic protection and maintenance every 6 months for 15 years.',
+    imageUrl:
+      'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=800&q=80',
+    popular: true,
+    features: [
+      '230 Micron TPU Self-Healing PPF',
+      '15-Year Warranty',
+      'Self Healing',
+      'Anti Yellowing',
+      'Hydrophobic',
+      'Non Cracking',
+      'Non Lining',
+      'Non Bubbling',
+      'PPF Coating included',
+      'Underbody Coating included',
+      'Exterior Detailing included',
+      'Interior Deep Cleaning included',
+      'Alloy Coating included',
+      'Glass Coating included',
+      'Foam Wash included',
+      'Headlamp & Taillamp Coating included',
+      'Maintenance every 6 months for 15 years',
+      'USA & Italy sourced products',
+    ],
+  },
+
+  // =====================================================
+  // OTHER SERVICES
+  // =====================================================
+
   {
     id: 'serv-ceramic',
     name: 'Ceramic Coating',
@@ -51,16 +341,19 @@ export const PREMIUM_SERVICES: DetailService[] = [
     durationHours: 12,
     warrantyYears: 5,
     category: 'Protection',
-    description: 'High-density Silicon Dioxide ceramic bond matrix creating an ultra-hydrophobic surface with extreme chemical and UV resistance.',
-    imageUrl: 'https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?auto=format&fit=crop&w=800&q=80',
-    popular: true,
+    description:
+      'High-density Silicon Dioxide ceramic bond matrix creating an ultra-hydrophobic surface with extreme chemical and UV resistance.',
+    imageUrl:
+      'https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?auto=format&fit=crop&w=800&q=80',
+    popular: false,
     features: [
       '110° Water drop contact angle',
       'UV ray paint fade resistance',
       'Instant wet-look gloss depth',
-      'Includes single-stage paint enhancement'
-    ]
+      'Includes single-stage paint enhancement',
+    ],
   },
+
   {
     id: 'serv-graphene',
     name: 'Graphene Coating',
@@ -69,16 +362,19 @@ export const PREMIUM_SERVICES: DetailService[] = [
     durationHours: 14,
     warrantyYears: 7,
     category: 'Protection',
-    description: 'Advanced reduced graphene oxide infusion offering superior heat dissipation to reduce water spotting, anti-static dust repelling, and hardness ratings above 10H.',
-    imageUrl: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=800&q=80',
-    popular: true,
+    description:
+      'Advanced reduced graphene oxide infusion offering superior heat dissipation to reduce water spotting, anti-static dust repelling, and hardness ratings above 10H.',
+    imageUrl:
+      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=800&q=80',
+    popular: false,
     features: [
       '>10H Mohs surface hardness',
       'Reduces water spot etching by 90%',
       'Anti-static dust repellency',
-      '7-Year certified studio warranty'
-    ]
+      '7-Year certified studio warranty',
+    ],
   },
+
   {
     id: 'serv-correction',
     name: 'Paint Correction',
@@ -87,16 +383,19 @@ export const PREMIUM_SERVICES: DetailService[] = [
     durationHours: 10,
     warrantyYears: 0,
     category: 'Correction',
-    description: 'Precision multi-stage machine polishing removing 90-99% of swirl marks, buffer trails, holograms, and moderate clearcoat scratches.',
-    imageUrl: 'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=800&q=80',
+    description:
+      'Precision multi-stage machine polishing removing 90-99% of swirl marks, buffer trails, holograms, and moderate clearcoat scratches.',
+    imageUrl:
+      'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=800&q=80',
     popular: false,
     features: [
       'Paint depth digital micrometer check',
       'Stage 1, 2, or Stage 3 custom correction',
       'Restores factory optical clarity',
-      'Prepares surface for nano coatings'
-    ]
+      'Prepares surface for nano coatings',
+    ],
   },
+
   {
     id: 'serv-interior',
     name: 'Interior Detailing',
@@ -105,16 +404,19 @@ export const PREMIUM_SERVICES: DetailService[] = [
     durationHours: 6,
     warrantyYears: 2,
     category: 'Detailing',
-    description: 'Deep extraction of Alcantara, steam sanitization of HVAC vents, conditioning of fine Nappa leather, and UV barrier ceramic application on dash screens.',
-    imageUrl: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80',
+    description:
+      'Deep extraction of Alcantara, steam sanitization of HVAC vents, conditioning of fine Nappa leather, and UV barrier ceramic application on dash screens.',
+    imageUrl:
+      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80',
     popular: false,
     features: [
       'Leather lock ceramic protection',
       'Alcantara pile restoration',
       'Ozone odor eradication treatment',
-      'Micro-vacuuming of carpet fibers'
-    ]
+      'Micro-vacuuming of carpet fibers',
+    ],
   },
+
   {
     id: 'serv-exterior',
     name: 'Exterior Detailing',
@@ -123,16 +425,19 @@ export const PREMIUM_SERVICES: DetailService[] = [
     durationHours: 5,
     warrantyYears: 1,
     category: 'Detailing',
-    description: 'Hand wash with pH-neutral snow foam, clay bar iron decontamination, brake caliper ceramic coat, glass water-repellent treatment, and tire satin dressing.',
-    imageUrl: 'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?auto=format&fit=crop&w=800&q=80',
+    description:
+      'Hand wash with pH-neutral snow foam, clay bar iron decontamination, brake caliper ceramic coat, glass water-repellent treatment, and tire satin dressing.',
+    imageUrl:
+      'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?auto=format&fit=crop&w=800&q=80',
     popular: false,
     features: [
       'pH-balanced snow foam bath',
       'Clay bar chemical decontamination',
       'Brake caliper & wheel barrel coating',
-      'Glass hydrophobic sealant'
-    ]
+      'Glass hydrophobic sealant',
+    ],
   },
+
   {
     id: 'serv-wash',
     name: 'Premium Wash',
@@ -141,16 +446,18 @@ export const PREMIUM_SERVICES: DetailService[] = [
     durationHours: 2,
     warrantyYears: 0,
     category: 'Maintenance',
-    description: 'Single-vehicle maintenance wash using 0 PPM pure de-ionized water, dual-bucket scratchless microfiber techniques, and warm air blower drying.',
-    imageUrl: 'https://images.unsplash.com/photo-1520050206274-a1ae44613e6d?auto=format&fit=crop&w=800&q=80',
+    description:
+      'Single-vehicle maintenance wash using 0 PPM pure de-ionized water, dual-bucket scratchless microfiber techniques, and warm air blower drying.',
+    imageUrl:
+      'https://images.unsplash.com/photo-1520050206274-a1ae44613e6d?auto=format&fit=crop&w=800&q=80',
     popular: false,
     features: [
       '0 PPM de-ionized spot-free rinse',
       'Filtered warm air touchless dry',
       'Satin wheel & rubber dressing',
-      'Quick interior wipe down'
-    ]
-  }
+      'Quick interior wipe down',
+    ],
+  },
 ];
 
 export const FEATURED_OFFERS = [
