@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Calendar,
   CheckCircle2,
@@ -14,16 +14,38 @@ import { BookingDetails, ScreenId, Vehicle } from '../types';
 import { PREMIUM_SERVICES } from '../data/mockData';
 
 interface BookingsScreenProps {
-  bookingDetails?: BookingDetails;
+  bookings: BookingDetails[];
   vehicles: Vehicle[];
   onNavigate: (screen: ScreenId) => void;
 }
 
 export const BookingsScreen: React.FC<BookingsScreenProps> = ({
-  bookingDetails,
+  bookings,
   vehicles,
   onNavigate,
 }) => {
+  const [savedBookings, setSavedBookings] = useState<BookingDetails[]>(bookings);
+
+  useEffect(() => {
+    if (bookings.length > 0) {
+      setSavedBookings(bookings);
+      return;
+    }
+
+    const storedBookings = localStorage.getItem('autotrics_bookings');
+
+    if (storedBookings) {
+      try {
+        const parsedBookings = JSON.parse(storedBookings) as BookingDetails[];
+        setSavedBookings(parsedBookings);
+      } catch (error) {
+        console.error('Failed to load bookings:', error);
+        setSavedBookings([]);
+      }
+    }
+  }, [bookings]);
+
+  const bookingDetails = savedBookings[0];
 
   const bookedVehicle = bookingDetails
     ? vehicles.find(

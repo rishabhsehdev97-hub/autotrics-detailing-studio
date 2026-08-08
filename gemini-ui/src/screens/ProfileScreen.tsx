@@ -122,8 +122,8 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({
             badge: activeBookings > 0 ? `${activeBookings} Active` : 'None',
           },
           {
-            label: 'My Vehicles',
-            subtitle: 'Manage your vehicles',
+            label: 'My Garage',
+            subtitle: 'Your personal vehicle garage',
             icon: Car,
             screen: 'garage' as ScreenId,
             badge: `${vehicles.length}`,
