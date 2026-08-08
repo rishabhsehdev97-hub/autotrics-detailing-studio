@@ -9,6 +9,8 @@ export type ScreenId =
   | 'garage'
   | 'booking'
   | 'payment'
+  'booking-confirmation'
+  | 'bookings'
   | 'warranty'
   | 'profile'
   | 'settings'
@@ -61,13 +63,37 @@ export interface AiQuoteResult {
 }
 
 export interface BookingDetails {
-  vehicleId: string;
+  // Customer details
+  customerName: string;
+  customerPhone: string;
+  customerEmail: string;
+
+  // Vehicle details
+  vehicleId?: string;
+  vehicleMake: string;
+  vehicleModel: string;
+  vehicleYear: number;
+  vehicleRegistration: string;
+  vehicleColor: string;
+
+  // Services
   serviceIds: string[];
-  deliveryMethod: 'Studio Drop-off' | 'Valet Enclosed Transport' | 'On-Site Concierge';
+  addonIds: string[];
+
+  // Appointment
+  deliveryMethod:
+    | 'Studio Drop-off'
+    | 'Valet Enclosed Transport'
+    | 'On-Site Concierge';
+
   date: string;
   timeSlot: string;
+
+  // Valet / additional information
   valetAddress?: string;
   specialInstructions?: string;
+
+  // Final amount
   totalAmount: number;
 }
 
