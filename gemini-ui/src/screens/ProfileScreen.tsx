@@ -1,354 +1,271 @@
 import React from 'react';
-
 import {
   User,
-  Award,
-  Shield,
-  CreditCard,
-  MapPin,
+  Car,
+  CalendarDays,
+  ShieldCheck,
   Bell,
+  MapPin,
+  CreditCard,
   Settings,
   ChevronRight,
   LogOut,
-  Sparkles,
-  CalendarCheck,
 } from 'lucide-react';
-
-import { ScreenId } from '../types';
-
+import { ScreenId, Vehicle } from '../types';
 
 interface ProfileScreenProps {
   onNavigate: (screen: ScreenId) => void;
+  vehicles?: Vehicle[];
 }
-
 
 export const ProfileScreen: React.FC<ProfileScreenProps> = ({
   onNavigate,
+  vehicles = [],
 }) => {
-
-  const accountItems = [
-
-    {
-      label: 'My Bookings',
-      icon: CalendarCheck,
-      screen: 'bookings' as ScreenId,
-      badge: 'View',
-    },
-
-    {
-      label: 'Studio Garage Vehicles',
-      icon: Shield,
-      screen: 'garage' as ScreenId,
-      badge: '4 Cars',
-    },
-
-    {
-      label: 'Digital Warranty Certificates',
-      icon: Award,
-      screen: 'warranty' as ScreenId,
-      badge: 'Active',
-    },
-
-    {
-      label: 'Notifications & Alerts',
-      icon: Bell,
-      screen: 'notifications' as ScreenId,
-      badge: '3 Unread',
-    },
-
-    {
-      label: 'Saved Valet Addresses',
-      icon: MapPin,
-      screen: 'settings' as ScreenId,
-      badge: 'Saved',
-    },
-
-    {
-      label: 'Payment Instruments',
-      icon: CreditCard,
-      screen: 'payment' as ScreenId,
-      badge: 'UPI / Card',
-    },
-
-    {
-      label: 'Studio Preferences & Audio',
-      icon: Settings,
-      screen: 'settings' as ScreenId,
-    },
-
-  ];
-
+  const activeBookings = 1;
+  const serviceHistory = 0;
+  const activeWarranty = 0;
 
   return (
+    <div className="space-y-4 pb-6">
 
-    <div className="w-full px-4 pt-5 pb-28 space-y-5">
+      {/* Profile Header */}
+      <div className="relative overflow-hidden rounded-3xl border border-[#00C2FF]/30 bg-[#0B0D12] p-5">
 
+        <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-[#00C2FF]/10 blur-3xl pointer-events-none" />
 
-      {/* =====================================================
-          PROFILE HEADER
-      ===================================================== */}
+        <div className="relative flex items-center gap-4">
 
-      <div
-        className="
-          relative
-          rounded-3xl
-          bg-[#0B0D12]
-          p-5
-          border border-[#00C2FF]/40
-          space-y-4
-          shadow-[0_0_35px_rgba(0,194,255,0.08)]
-        "
-      >
-
-        <div className="flex items-center gap-4">
-
-          <div className="relative">
-
-            <div
-              className="
-                w-16
-                h-16
-                rounded-2xl
-                bg-[#00C2FF]/10
-                border-2
-                border-[#00C2FF]
-                flex
-                items-center
-                justify-center
-              "
-            >
-              <User className="w-7 h-7 text-[#00C2FF]" />
-            </div>
-
-            <span
-              className="
-                absolute
-                -bottom-1
-                -right-1
-                px-1.5
-                py-1
-                bg-[#00C2FF]
-                rounded-lg
-                text-black
-                font-extrabold
-                text-[8px]
-              "
-            >
-              VIP
-            </span>
-
+          <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-2xl border border-[#00C2FF]/40 bg-[#00C2FF]/10">
+            <User className="h-7 w-7 text-[#00C2FF]" />
           </div>
-
 
           <div className="min-w-0">
-
-            <div className="flex items-center gap-2 flex-wrap">
-
-              <span className="text-[9px] font-mono tracking-widest text-[#00C2FF] uppercase font-bold">
-                MEMBER #0492
-              </span>
-
-              <span className="text-[8px] font-mono px-1.5 py-1 bg-amber-500/20 text-amber-400 rounded">
-                APEX TIER
-              </span>
-
-            </div>
-
-            <h2 className="mt-1 font-heading font-extrabold text-xl text-white">
-              Julian Vance
-            </h2>
-
-            <p className="text-[10px] text-slate-500 font-mono truncate">
-              julian.vance@porsche-apex.com
+            <p className="text-[9px] font-mono font-bold uppercase tracking-[0.18em] text-[#00C2FF]">
+              AUTOTRICS CUSTOMER
             </p>
 
+            <h2 className="mt-1 truncate font-heading text-xl font-extrabold text-white">
+              Rishabh Sehdev
+            </h2>
+
+            <p className="mt-0.5 truncate text-[11px] font-mono text-slate-500">
+              Customer Account
+            </p>
           </div>
 
         </div>
 
+        {/* Account Summary */}
+        <div className="relative mt-5 grid grid-cols-3 gap-2">
 
-        {/* Rewards */}
+          <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3">
+            <p className="text-[8px] font-mono uppercase tracking-widest text-slate-500">
+              Bookings
+            </p>
 
-        <div
-          className="
-            rounded-2xl
-            border border-white/10
-            bg-white/[0.03]
-            p-3.5
-            flex
-            items-center
-            justify-between
-            gap-3
-          "
-        >
+            <p className="mt-1 text-lg font-black text-white">
+              {activeBookings}
+            </p>
 
-          <div>
-
-            <span className="text-[9px] font-mono text-slate-500 uppercase">
-              Autotrics Rewards Credit
-            </span>
-
-            <div className="mt-1 font-heading font-extrabold text-lg text-white flex items-center gap-1.5">
-
-              <Sparkles className="w-4 h-4 text-[#00C2FF]" />
-
-              <span>3,450 ACC</span>
-
-            </div>
-
-            <span className="text-[9px] text-[#00C2FF] font-mono">
-              ₹28,750 Value
-            </span>
-
+            <p className="text-[8px] text-[#00C2FF]">
+              Active
+            </p>
           </div>
 
+          <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3">
+            <p className="text-[8px] font-mono uppercase tracking-widest text-slate-500">
+              Vehicles
+            </p>
 
-          <button
-            onClick={() => onNavigate('booking')}
-            className="
-              px-3
-              py-2
-              rounded-xl
-              bg-[#00C2FF]/10
-              text-[#00C2FF]
-              border border-[#00C2FF]/30
-              text-[9px]
-              font-mono
-              font-bold
-              hover:bg-[#00C2FF]
-              hover:text-black
-              transition-all
-              whitespace-nowrap
-            "
-          >
-            Redeem Perks
-          </button>
+            <p className="mt-1 text-lg font-black text-white">
+              {vehicles.length}
+            </p>
+
+            <p className="text-[8px] text-slate-500">
+              In Garage
+            </p>
+          </div>
+
+          <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3">
+            <p className="text-[8px] font-mono uppercase tracking-widest text-slate-500">
+              Warranty
+            </p>
+
+            <p className="mt-1 text-lg font-black text-white">
+              {activeWarranty}
+            </p>
+
+            <p className="text-[8px] text-slate-500">
+              Active
+            </p>
+          </div>
 
         </div>
-
       </div>
 
+      {/* My Autotrics */}
+      <div className="rounded-3xl border border-white/10 bg-[#0B0D12] p-2">
 
-      {/* =====================================================
-          ACCOUNT NAVIGATION
-      ===================================================== */}
+        <div className="px-3 pb-2 pt-2">
+          <p className="text-[9px] font-mono font-bold uppercase tracking-[0.18em] text-slate-500">
+            MY AUTOTRICS
+          </p>
+        </div>
 
-      <div
-        className="
-          bg-[#0B0D12]
-          rounded-3xl
-          border border-white/10
-          p-2
-          divide-y
-          divide-white/5
-        "
-      >
-
-        {accountItems.map((item, index) => {
-
+        {[
+          {
+            label: 'My Bookings',
+            subtitle: 'View appointments and booking status',
+            icon: CalendarDays,
+            screen: 'bookings' as ScreenId,
+            badge: activeBookings > 0 ? `${activeBookings} Active` : 'None',
+          },
+          {
+            label: 'My Vehicles',
+            subtitle: 'Manage your vehicles',
+            icon: Car,
+            screen: 'garage' as ScreenId,
+            badge: `${vehicles.length}`,
+          },
+          {
+            label: 'Service History',
+            subtitle: 'Completed detailing services',
+            icon: ShieldCheck,
+            screen: 'garage' as ScreenId,
+            badge: `${serviceHistory}`,
+          },
+          {
+            label: 'Warranty Certificates',
+            subtitle: 'View active service warranties',
+            icon: ShieldCheck,
+            screen: 'warranty' as ScreenId,
+            badge: activeWarranty > 0 ? 'Active' : 'None',
+          },
+        ].map((item, index) => {
           const Icon = item.icon;
 
           return (
-
             <button
-              key={item.label}
-              id={`profile-nav-item-${index}`}
+              key={index}
               onClick={() => onNavigate(item.screen)}
-              className="
-                w-full
-                p-3.5
-                flex
-                items-center
-                justify-between
-                hover:bg-white/5
-                transition-colors
-                rounded-2xl
-                text-xs
-                font-medium
-                text-slate-200
-              "
+              className="w-full rounded-2xl p-3.5 flex items-center justify-between text-left transition-colors hover:bg-white/[0.04]"
             >
+              <div className="flex items-center gap-3 min-w-0">
 
-              <div className="flex items-center gap-3">
+                <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl border border-[#00C2FF]/20 bg-[#00C2FF]/5">
+                  <Icon className="h-4 w-4 text-[#00C2FF]" />
+                </div>
 
-                <Icon className="w-4 h-4 text-[#00C2FF]" />
+                <div className="min-w-0">
+                  <p className="font-heading text-xs font-bold text-white">
+                    {item.label}
+                  </p>
 
-                <span className="font-heading font-semibold">
-                  {item.label}
+                  <p className="mt-0.5 truncate text-[9px] text-slate-500">
+                    {item.subtitle}
+                  </p>
+                </div>
+
+              </div>
+
+              <div className="flex items-center gap-2 flex-shrink-0">
+
+                <span className="rounded-md bg-white/[0.06] px-2 py-1 text-[8px] font-mono text-slate-400">
+                  {item.badge}
                 </span>
 
-              </div>
-
-
-              <div className="flex items-center gap-2">
-
-                {item.badge && (
-
-                  <span
-                    className="
-                      text-[9px]
-                      font-mono
-                      bg-white/10
-                      text-slate-400
-                      px-2
-                      py-1
-                      rounded-md
-                    "
-                  >
-                    {item.badge}
-                  </span>
-
-                )}
-
-                <ChevronRight className="w-4 h-4 text-slate-600" />
+                <ChevronRight className="h-4 w-4 text-slate-600" />
 
               </div>
-
             </button>
-
           );
-
         })}
 
       </div>
 
+      {/* Account Settings */}
+      <div className="rounded-3xl border border-white/10 bg-[#0B0D12] p-2">
 
-      {/* =====================================================
-          LOGOUT
-      ===================================================== */}
+        <div className="px-3 pb-2 pt-2">
+          <p className="text-[9px] font-mono font-bold uppercase tracking-[0.18em] text-slate-500">
+            ACCOUNT
+          </p>
+        </div>
 
+        {[
+          {
+            label: 'Notifications',
+            subtitle: 'Alerts and booking updates',
+            icon: Bell,
+            screen: 'notifications' as ScreenId,
+          },
+          {
+            label: 'Saved Addresses',
+            subtitle: 'Pickup and delivery addresses',
+            icon: MapPin,
+            screen: 'settings' as ScreenId,
+          },
+          {
+            label: 'Payment Methods',
+            subtitle: 'Manage your payment options',
+            icon: CreditCard,
+            screen: 'payment' as ScreenId,
+          },
+          {
+            label: 'Settings',
+            subtitle: 'App preferences and account settings',
+            icon: Settings,
+            screen: 'settings' as ScreenId,
+          },
+        ].map((item, index) => {
+          const Icon = item.icon;
+
+          return (
+            <button
+              key={index}
+              onClick={() => onNavigate(item.screen)}
+              className="w-full rounded-2xl p-3.5 flex items-center justify-between text-left transition-colors hover:bg-white/[0.04]"
+            >
+              <div className="flex items-center gap-3">
+
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03]">
+                  <Icon className="h-4 w-4 text-slate-400" />
+                </div>
+
+                <div>
+                  <p className="font-heading text-xs font-bold text-white">
+                    {item.label}
+                  </p>
+
+                  <p className="mt-0.5 text-[9px] text-slate-500">
+                    {item.subtitle}
+                  </p>
+                </div>
+
+              </div>
+
+              <ChevronRight className="h-4 w-4 text-slate-600" />
+            </button>
+          );
+        })}
+
+      </div>
+
+      {/* Logout */}
       <button
         id="profile-logout-btn"
         onClick={() => onNavigate('login')}
-        className="
-          w-full
-          py-3.5
-          rounded-2xl
-          bg-[#0B0D12]
-          hover:bg-rose-500/10
-          text-rose-400
-          border border-rose-500/30
-          text-xs
-          font-heading
-          font-bold
-          uppercase
-          flex
-          items-center
-          justify-center
-          gap-2
-          transition-all
-        "
+        className="w-full rounded-2xl border border-rose-500/30 bg-rose-500/[0.03] py-3.5 text-xs font-heading font-bold uppercase tracking-wide text-rose-400 flex items-center justify-center gap-2 transition-all hover:bg-rose-500/10"
       >
-
-        <LogOut className="w-4 h-4" />
-
-        <span>
-          Log Out of Studio Session
-        </span>
-
+        <LogOut className="h-4 w-4" />
+        Log Out
       </button>
 
-    </div>
+      <p className="text-center text-[8px] font-mono uppercase tracking-[0.2em] text-slate-700">
+        AUTOTRICS DETAILING STUDIO
+      </p>
 
+    </div>
   );
 };

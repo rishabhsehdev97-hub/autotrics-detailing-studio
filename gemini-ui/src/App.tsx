@@ -382,12 +382,12 @@ case 'service-details':
       // -------------------------------------------------
 
       case 'profile':
-
-        return (
-          <ProfileScreen
-            onNavigate={handleNavigate}
-          />
-        );
+  return (
+    <ProfileScreen
+      vehicles={vehicles}
+      onNavigate={handleNavigate}
+    />
+  );
 
 
       // -------------------------------------------------
