@@ -17,13 +17,13 @@ export const AiQuoteScreen: React.FC<AiQuoteScreenProps> = ({
   onNavigate,
   onApplyAiQuote,
 }) => {
-  const [make, setMake] = useState('Porsche');
-  const [model, setModel] = useState('911 GT3 RS');
-  const [year, setYear] = useState('2024');
-  const [finish, setFinish] = useState<string>('Gloss');
-  const [condition, setCondition] = useState<string>('Micro-swirls & light oxidation');
-  const [selectedServices, setSelectedServices] = useState<string[]>(['Paint Protection Film (PPF)', 'Graphene Coating']);
-  const [notes, setNotes] = useState('Requires maximum depth gloss and hydrophobic protection for track day use.');
+ const [make, setMake] = useState('');
+const [model, setModel] = useState('');
+const [year, setYear] = useState('');
+const [finish, setFinish] = useState<string>('');
+const [condition, setCondition] = useState<string>('');
+const [selectedServices, setSelectedServices] = useState<string[]>([]);
+const [notes, setNotes] = useState('');
   
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [scanStep, setScanStep] = useState<string>('');
@@ -61,7 +61,7 @@ export const AiQuoteScreen: React.FC<AiQuoteScreenProps> = ({
         body: JSON.stringify({
           vehicleMake: make,
           vehicleModel: model,
-          year: parseInt(year) || 2024,
+          year: parseInt(year),
           finish,
           condition,
           servicesRequested: selectedServices,
@@ -143,7 +143,7 @@ export const AiQuoteScreen: React.FC<AiQuoteScreenProps> = ({
                   value={make}
                   onChange={(e) => setMake(e.target.value)}
                   className="w-full glass-input px-3 py-2.5 rounded-xl text-xs text-white"
-                  placeholder="e.g. Porsche"
+                  placeholder="e.g. BMW"
                 />
               </div>
 
@@ -154,7 +154,7 @@ export const AiQuoteScreen: React.FC<AiQuoteScreenProps> = ({
                   value={model}
                   onChange={(e) => setModel(e.target.value)}
                   className="w-full glass-input px-3 py-2.5 rounded-xl text-xs text-white"
-                  placeholder="e.g. 911 GT3 RS"
+                  placeholder="e.g. 5 Series"
                 />
               </div>
             </div>
@@ -370,7 +370,7 @@ export const AiQuoteScreen: React.FC<AiQuoteScreenProps> = ({
               <div>
                 <span className="text-[10px] font-mono text-slate-400 uppercase">Estimated Investment</span>
                 <div className="font-heading font-black text-2xl text-white">
-                  ${aiResult.estimatedPriceUSD.toLocaleString()}
+                  ${aiResult.estimatedPriceINR.toLocaleString()}
                 </div>
               </div>
 

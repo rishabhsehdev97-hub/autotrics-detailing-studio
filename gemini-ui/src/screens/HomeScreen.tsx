@@ -129,31 +129,27 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
   </div>
 
   {/* Score */}
-  <div className="relative mt-5 flex items-center justify-between">
+<div>
+  <p className="text-xs text-slate-400">
+    Overall Paint Score
+  </p>
 
-    <div>
-      <p className="text-xs text-slate-400">
-        Overall Paint Score
-      </p>
-
-      <div className="flex items-end gap-2 mt-1">
-        <span className="text-4xl font-black text-white">
-          94
-        </span>
-
-        <span className="text-cyan-400 font-bold mb-1">
-          /100
-        </span>
-      </div>
-    </div>
-
-    <div className="px-3 py-1.5 rounded-full bg-emerald-400/10 border border-emerald-400/20">
-      <span className="text-xs font-bold text-emerald-400">
-        Excellent
-      </span>
-    </div>
-
+  <div className="flex items-end gap-2 mt-1">
+    <span className="text-3xl font-black text-white">
+      —
+    </span>
   </div>
+
+  <p className="text-[10px] text-slate-500 mt-1">
+    Inspection required
+  </p>
+</div>
+
+<div className="px-3 py-1.5 rounded-full bg-white/5 border border-white/10">
+  <span className="text-xs font-bold text-slate-400">
+    Not Inspected
+  </span>
+</div>
 
   {/* Progress */}
   <div className="relative mt-4 h-2 rounded-full bg-white/10 overflow-hidden">
@@ -334,8 +330,10 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
               </p>
 
               <p className="text-sm font-black text-cyan-400 mt-1">
-                {veh.paintHealthScore}%
-              </p>
+  {veh.paintHealthScore > 0
+    ? `${veh.paintHealthScore}%`
+    : 'Not Inspected'}
+</p>
 
             </div>
 
@@ -571,152 +569,54 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
   {/* Offer Cards */}
   <div className="space-y-3">
 
-    {FEATURED_OFFERS.map((offer) => (
+    {FEATURED_OFFERS.length > 0 && (
+  <section className="mt-8">
+    <div className="flex items-end justify-between mb-4">
+      <div>
+        <p className="text-[10px] uppercase tracking-[0.25em] text-zinc-500 font-semibold">
+          AUTOTRICS
+        </p>
 
-      <div
-        key={offer.id}
-        id={`offer-card-${offer.id}`}
-        className="
-          group
-          relative
-          overflow-hidden
-          rounded-2xl
-          border border-white/10
-          bg-[#0B0D12]
-          p-4
-          transition-all
-          duration-300
-          hover:border-[#00C2FF]/50
-          hover:bg-[#0D1118]
-        "
-      >
-
-        {/* Accent Glow */}
-        <div
-          className="
-            absolute
-            -right-10
-            -top-10
-            w-28
-            h-28
-            rounded-full
-            bg-[#00C2FF]/10
-            blur-3xl
-            pointer-events-none
-          "
-        />
-
-        <div className="relative z-10">
-
-          {/* Offer Code */}
-          <div className="flex items-center justify-between">
-
-            <span
-              className="
-                inline-flex
-                rounded-md
-                border border-[#00C2FF]/30
-                bg-[#00C2FF]/10
-                px-2
-                py-1
-                text-[8px]
-                font-mono
-                font-bold
-                tracking-wider
-                text-[#00C2FF]
-                uppercase
-              "
-            >
-              {offer.code}
-            </span>
-
-            <Tag className="w-4 h-4 text-[#00C2FF]/60" />
-
-          </div>
-
-
-          {/* Offer Title */}
-          <h3
-            className="
-              mt-3
-              font-heading
-              font-extrabold
-              text-sm
-              text-white
-              leading-tight
-            "
-          >
-            {offer.title}
-          </h3>
-
-
-          {/* Discount / Benefit */}
-          <p
-            className="
-              mt-1.5
-              text-xs
-              font-semibold
-              text-[#00C2FF]
-            "
-          >
-            {offer.discount}
-          </p>
-
-
-          {/* Bottom Action */}
-          <div
-            className="
-              mt-4
-              flex
-              items-center
-              justify-between
-              border-t
-              border-white/10
-              pt-3
-            "
-          >
-
-            <span
-              className="
-                text-[9px]
-                font-mono
-                uppercase
-                tracking-widest
-                text-slate-500
-              "
-            >
-              Exclusive VIP Package
-            </span>
-
-            <button
-              id={`claim-offer-btn-${offer.id}`}
-              onClick={() => onNavigate('booking')}
-              className="
-                flex
-                items-center
-                gap-1.5
-                rounded-xl
-                bg-[#00C2FF]
-                px-3.5
-                py-2
-                text-[10px]
-                font-bold
-                text-black
-                transition-all
-                hover:bg-cyan-300
-              "
-            >
-              Claim Offer
-              <ChevronRight className="w-3 h-3" />
-            </button>
-
-          </div>
-
-        </div>
-
+        <h2 className="text-xl font-semibold text-white mt-1">
+          Featured Offers
+        </h2>
       </div>
+    </div>
 
-    ))}
+    <div className="grid gap-4">
+      {FEATURED_OFFERS.map((offer) => (
+        <div
+          key={offer.id}
+          className="relative overflow-hidden rounded-2xl border border-white/10 bg-zinc-900"
+        >
+          {offer.bgUrl && (
+            <img
+              src={offer.bgUrl}
+              alt=""
+              className="absolute inset-0 w-full h-full object-cover opacity-20"
+            />
+          )}
+
+          <div className="relative p-5">
+            <h3 className="text-lg font-semibold text-white">
+              {offer.title}
+            </h3>
+
+            <p className="text-sm text-zinc-300 mt-2">
+              {offer.discount}
+            </p>
+
+            {offer.code && (
+              <p className="text-xs text-zinc-500 mt-3">
+                Offer code: {offer.code}
+              </p>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+)}
 
   </div>
 

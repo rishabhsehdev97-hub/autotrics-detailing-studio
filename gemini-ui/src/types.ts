@@ -75,7 +75,7 @@ export interface AiQuoteResult {
   recommendedSteps: string[];
   estimatedTimeHours: number;
   recommendedPackageName: string;
-  estimatedPriceUSD: number;
+  estimatedPriceINR: number;
   warrantyCoverageYears: number;
   hydrophobicRating: string;
   aiTechnicianNote: string;

@@ -288,7 +288,7 @@ export default function App() {
                 id: 'serv-ai-custom',
                 name: quote.recommendedPackageName,
                 tagline: quote.surfaceDefectAnalysis,
-                price: quote.estimatedPriceUSD,
+                price: quote.estimatedPriceINR,
                 durationHours: quote.estimatedTimeHours,
                 warrantyYears:
                   quote.warrantyCoverageYears,

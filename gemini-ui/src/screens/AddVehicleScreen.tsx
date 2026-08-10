@@ -27,27 +27,31 @@ export const AddVehicleScreen: React.FC<AddVehicleScreenProps> = ({ onAddVehicle
   const [selectedImage, setSelectedImage] = useState(PRESET_CAR_PHOTOS[5].url);
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const newVeh: Vehicle = {
-      id: `veh-${Date.now()}`,
-      make,
-      model,
-      year: parseInt(year) || 2025,
-      color,
-      finish,
-      licensePlate,
-      vin,
-      imageUrl: selectedImage,
-      paintHealthScore: 92,
-      protectionType: 'Pending Studio Treatment',
-      protectionExpires: 'N/A',
-      lastServiceDate: 'Just Added',
-      status: 'Pending Treatment',
-    };
+  e.preventDefault();
 
-    onAddVehicle(newVeh);
-    onNavigate('garage');
+  const newVeh: Vehicle = {
+    id: `veh-${Date.now()}`,
+    make,
+    model,
+    year: parseInt(year) || 2025,
+    color,
+    finish,
+    licensePlate,
+    vin,
+    imageUrl: selectedImage,
+
+    // Vehicle has not been inspected yet
+    paintHealthScore: 0,
+
+    protectionType: 'Not Inspected',
+    protectionExpires: 'N/A',
+    lastServiceDate: 'Just Added',
+    status: 'Pending Treatment',
   };
+
+  onAddVehicle(newVeh);
+  onNavigate('garage');
+};
 
   return (
     <div className="w-full space-y-6 pb-24 px-4 pt-3">

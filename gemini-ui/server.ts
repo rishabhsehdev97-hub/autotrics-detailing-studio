@@ -35,11 +35,11 @@ app.post("/api/ai-quote", async (req, res) => {
       try {
         const prompt = `You are AUTOTRICS Master Automotive Diagnostic AI.
 Analyze the following luxury vehicle for detailing & paint protection:
-Vehicle: ${year || "2024"} ${vehicleMake || "Porsche"} ${vehicleModel || "911 GT3 RS"}
-Paint Finish: ${finish || "Gloss Carbon"}
-Paint Condition: ${condition || "Micro-swirls & light oxidation"}
-Services Requested: ${(servicesRequested || ["PPF", "Ceramic Coating"]).join(", ")}
-Client Notes: ${notes || "Wants maximum depth and hydrophobic gloss."}
+Vehicle: ${year || "Not provided"} ${vehicleMake || "Not provided"} ${vehicleModel || "Not provided"}
+Paint Finish: ${finish || "Not provided"}
+Paint Condition: ${condition || "Not provided"}
+Services Requested: ${(servicesRequested || []).length > 0 ? servicesRequested.join(", ") : "Not specified"}
+Client Notes: ${notes || "No additional notes provided."}
 
 Provide a JSON output ONLY with the following exact keys:
 {
@@ -48,7 +48,7 @@ Provide a JSON output ONLY with the following exact keys:
   "recommendedSteps": ["step 1", "step 2", "step 3", "step 4"],
   "estimatedTimeHours": number,
   "recommendedPackageName": "string package name like Matrix Graphene Shield Pro",
-  "estimatedPriceUSD": number,
+  "estimatedPriceINR": number,
   "warrantyCoverageYears": number,
   "hydrophobicRating": "string e.g. 115° Contact Angle",
   "aiTechnicianNote": "string professional summary from chief detailing engineer"
@@ -72,33 +72,42 @@ Provide a JSON output ONLY with the following exact keys:
     }
 
     // High-tech luxury fallback quote calculation engine
-    const isSupercar = ["Porsche", "Ferrari", "Lamborghini", "McLaren", "Aston Martin", "Bugatti", "Pagani"].some(
-      m => vehicleMake?.toLowerCase().includes(m.toLowerCase())
-    );
-    const basePrice = isSupercar ? 1850 : 1250;
-    const conditionMultiplier = condition?.includes("Heavy") ? 1.4 : condition?.includes("Swirls") ? 1.2 : 1.0;
-    const serviceCount = (servicesRequested?.length || 2);
-    const calculatedPrice = Math.round((basePrice + (serviceCount * 450)) * conditionMultiplier);
-    const healthScore = condition?.includes("Showroom") ? 96 : condition?.includes("Heavy") ? 64 : 78;
+    const serviceCount = servicesRequested?.length || 0;
+
+const calculatedPrice = serviceCount > 0 ? 0 : 0;
 
     return res.json({
       success: true,
       quote: {
-        paintHealthScore: healthScore,
-        surfaceDefectAnalysis: `Spectrogram optical analysis indicates sub-micron clear coat swirls on horizontal panels. Surface tension requires multi-stage prep for dual-layer ${finish || 'Gloss'} protection.`,
-        recommendedSteps: [
-          "Decontamination Wash & Iron Fallout Removal",
-          "Dual-Action Stage 2 Optical Paint Correction",
-          "9H Graphene Matrix Ceramic Infusion",
-          "Self-Healing TPU Film Application (Front Clip)"
-        ],
-        estimatedTimeHours: 18,
-        recommendedPackageName: "AUTOTRICS APEX MATRIX SHIELD 10Y",
-        estimatedPriceUSD: calculatedPrice,
-        warrantyCoverageYears: 10,
-        hydrophobicRating: "118° Hydrophobic Water Contact Angle",
-        aiTechnicianNote: "Recommended for high-velocity paint preservation. Restores optical depth beyond OEM showroom clarity."
-      },
+  paintHealthScore: 0,
+
+  surfaceDefectAnalysis:
+    "A physical inspection or supported vehicle scan is required before Autotrics can provide a verified paint-health assessment.",
+
+  recommendedSteps: [
+    "Vehicle inspection",
+    "Surface decontamination assessment",
+    "Paint condition assessment",
+    "Service recommendation"
+  ],
+
+  estimatedTimeHours: 0,
+
+  recommendedPackageName:
+    servicesRequested?.length
+      ? servicesRequested[0]
+      : "Inspection Required",
+
+  estimatedPriceINR: calculatedPrice,
+
+  warrantyCoverageYears: 0,
+
+  hydrophobicRating:
+    "To be determined based on selected protection package",
+
+  aiTechnicianNote:
+    "This is a preliminary AI-assisted estimate. Final service recommendation, pricing, warranty and paint assessment should be confirmed by an Autotrics detailing professional."
+},
       isAiGenerated: false
     });
   } catch (err: any) {

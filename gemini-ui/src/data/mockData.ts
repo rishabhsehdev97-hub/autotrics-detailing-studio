@@ -1197,124 +1197,19 @@ export const PREMIUM_SERVICES: DetailService[] = [
 
 ];
 
-export const FEATURED_OFFERS = [
-  {
-    id: 'off-1',
-    title: 'Stealth Matte PPF Full Body Package',
-    discount: '15% OFF + FREE Graphene Topcoat',
-    code: 'STEALTH15',
-    expiry: 'Valid through Sunday',
-    bgUrl: 'https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=800&q=80',
-  },
-  {
-    id: 'off-2',
-    title: 'Dual-Layer 10H Graphene Matrix',
-    discount: 'Complimentary Interior Leather Ceramic',
-    code: 'GRAPHENE-VIP',
-    expiry: '4 Slots Remaining',
-    bgUrl: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=800&q=80',
-  }
-];
+type FeaturedOffer = {
+  id: string;
+  title: string;
+  discount: string;
+  code?: string;
+  expiry?: string;
+  bgUrl?: string;
+};
 
-export const INITIAL_WARRANTIES: WarrantyCertificate[] = [
-  {
-    id: 'war-01',
-    certificateNumber: 'ATC-992-8419-AUT',
-    vehicleName: '2024 Porsche 911 GT3 RS',
-    licensePlate: 'APEX-911',
-    packageInstalled: 'Stealth TPU Film + Dual Graphene 9H',
-    installationDate: '2024-04-12',
-    expiryDate: '2034-04-12',
-    warrantyYears: 10,
-    installerTechnician: 'Master Detailer Marcus Vance',
-    status: 'Active',
-    qrCodeUrl: 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=AUTOTRICS-ATC-992-8419-AUT',
-    hydrophobicScore: '118° Contact Angle'
-  },
-  {
-    id: 'war-02',
-    certificateNumber: 'ATC-338-1902-AUT',
-    vehicleName: '2024 Tesla Cybertruck Cyberbeast',
-    licensePlate: 'CYBER-X',
-    packageInstalled: 'Satin Self-Healing TPU Body Armor',
-    installationDate: '2024-11-04',
-    expiryDate: '2031-11-04',
-    warrantyYears: 7,
-    installerTechnician: 'Senior Specialist Elena Rostova',
-    status: 'Active',
-    qrCodeUrl: 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=AUTOTRICS-ATC-338-1902-AUT',
-    hydrophobicScore: '112° Contact Angle'
-  }
-];
+export const FEATURED_OFFERS: FeaturedOffer[] = [];
 
-export const INITIAL_NOTIFICATIONS: NotificationItem[] = [
-  {
-    id: 'notif-1',
-    title: 'Stage 1 Correction Complete',
-    message: 'Your 2024 Porsche 911 GT3 RS horizontal panels are now micro-polished to optical zero-defect standards.',
-    time: '12 min ago',
-    unread: true,
-    type: 'status',
-    vehicleImage: 'https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=300&q=80'
-  },
-  {
-    id: 'notif-2',
-    title: 'Annual Hydrophobic Inspection Due',
-    message: 'Your BMW M8 Competition is due for its complimentary 12-month Graphene gloss check-up.',
-    time: '2 hours ago',
-    unread: true,
-    type: 'warranty',
-    vehicleImage: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=300&q=80'
-  },
-  {
-    id: 'notif-3',
-    title: 'VIP Member Benefit Activated',
-    message: 'You unlocked free Enclosed Valet Transport for your next studio booking!',
-    time: '1 day ago',
-    unread: false,
-    type: 'offer'
-  }
-];
+export const INITIAL_WARRANTIES: WarrantyCertificate[] = [];
 
-export const INITIAL_STUDIO_BAYS: StudioBay[] = [
-  {
-    id: 1,
-    name: 'Bay 01 - IR Thermal Chamber',
-    vehicleName: '2024 Porsche 911 GT3 RS',
-    service: '9H Graphene Heat Curing',
-    progressPercent: 88,
-    technician: 'Marcus Vance',
-    estimatedCompletion: '45 mins',
-    status: 'Infrared Curing'
-  },
-  {
-    id: 2,
-    name: 'Bay 02 - Precision PPF Studio',
-    vehicleName: '2024 Tesla Cybertruck',
-    service: 'Full Body Satin TPU Wrap',
-    progressPercent: 62,
-    technician: 'Elena Rostova',
-    estimatedCompletion: '3 hours',
-    status: 'Active'
-  },
-  {
-    id: 3,
-    name: 'Bay 03 - Pure De-Ionized Bay',
-    vehicleName: '2025 BMW M8 Competition',
-    service: 'Decontamination & Iron Removal',
-    progressPercent: 25,
-    technician: 'Alex Chen',
-    estimatedCompletion: '1.5 hours',
-    status: 'Wash Bay'
-  },
-  {
-    id: 4,
-    name: 'Bay 04 - Optical Inspection Studio',
-    vehicleName: '2024 Ferrari SF90 Stradale',
-    service: 'Final QC & Hydrophobic Certification',
-    progressPercent: 95,
-    technician: 'Master Tech Soren',
-    estimatedCompletion: '15 mins',
-    status: 'QC Inspection'
-  }
-];
+export const INITIAL_NOTIFICATIONS: NotificationItem[] = [];
+
+export const INITIAL_STUDIO_BAYS: StudioBay[] = [];
