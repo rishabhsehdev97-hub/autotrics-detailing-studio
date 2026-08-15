@@ -389,11 +389,12 @@ export default function App() {
       // -------------------------------------------------
 
       case 'booking':
-        return (
-          <BookingScreen
-            vehicles={vehicles}
-            selectedService={selectedService}
-            onNavigate={handleNavigate}
+  return (
+    <BookingScreen
+      vehicles={vehicles}
+      selectedVehicle={selectedVehicle}
+      selectedService={selectedService}
+      onNavigate={handleNavigate}
             onProceedToPayment={(details) => {
               // Keep booking temporarily in memory
               // until payment succeeds.

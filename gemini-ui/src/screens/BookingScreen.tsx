@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   ArrowRight,
   Calendar,
@@ -20,6 +20,7 @@ import { PREMIUM_SERVICES } from '../data/mockData';
 
 interface BookingScreenProps {
   vehicles?: any[];
+  selectedVehicle?: any;
   selectedService?: DetailService;
   onNavigate: (screen: ScreenId) => void;
   onProceedToPayment: (details: BookingDetails) => void;
@@ -70,6 +71,7 @@ const TIME_OPTIONS = [
 ];
 
 export const BookingScreen: React.FC<BookingScreenProps> = ({
+  selectedVehicle,
   selectedService,
   onNavigate,
   onProceedToPayment,
@@ -87,10 +89,22 @@ export const BookingScreen: React.FC<BookingScreenProps> = ({
   // --------------------------------------------------
 
   const [vehicleMake, setVehicleMake] = useState('');
-  const [vehicleModel, setVehicleModel] = useState('');
-  const [vehicleYear, setVehicleYear] = useState('');
-  const [vehicleRegistration, setVehicleRegistration] = useState('');
-  const [vehicleColor, setVehicleColor] = useState('');
+const [vehicleModel, setVehicleModel] = useState('');
+const [vehicleYear, setVehicleYear] = useState('');
+const [vehicleRegistration, setVehicleRegistration] = useState('');
+const [vehicleColor, setVehicleColor] = useState('');
+
+useEffect(() => {
+  if (!selectedVehicle) return;
+
+  setVehicleMake(selectedVehicle.make || '');
+  setVehicleModel(selectedVehicle.model || '');
+  setVehicleYear(
+    selectedVehicle.year ? String(selectedVehicle.year) : ''
+  );
+  setVehicleRegistration(selectedVehicle.licensePlate || '');
+  setVehicleColor(selectedVehicle.color || '');
+}, [selectedVehicle]);
 
   // --------------------------------------------------
   // SERVICES
@@ -214,6 +228,7 @@ export const BookingScreen: React.FC<BookingScreenProps> = ({
 
     const details: BookingDetails = {
 
+      vehicleId: selectedVehicle?.id,
       
       customerName: customerName.trim(),
       customerPhone: customerPhone.trim(),
