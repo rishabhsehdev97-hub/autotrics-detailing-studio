@@ -54,14 +54,23 @@ const YEARS = Array.from(
   (_, index) => new Date().getFullYear() - index
 );
 
-const DATE_OPTIONS = [
-  { value: '2026-08-10', label: 'Monday, Aug 10' },
-  { value: '2026-08-11', label: 'Tuesday, Aug 11' },
-  { value: '2026-08-12', label: 'Wednesday, Aug 12' },
-  { value: '2026-08-13', label: 'Thursday, Aug 13' },
-  { value: '2026-08-14', label: 'Friday, Aug 14' },
-  { value: '2026-08-15', label: 'Saturday, Aug 15' },
-];
+const DATE_OPTIONS = Array.from({ length: 7 }, (_, index) => {
+  const date = new Date();
+  date.setDate(date.getDate() + index);
+
+  const value = date.toISOString().split('T')[0];
+
+  const label = date.toLocaleDateString('en-IN', {
+    weekday: 'long',
+    month: 'short',
+    day: 'numeric',
+  });
+
+  return {
+    value,
+    label,
+  };
+});
 
 const TIME_OPTIONS = [
   '09:00 AM',
