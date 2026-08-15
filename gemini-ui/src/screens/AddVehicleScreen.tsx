@@ -17,14 +17,14 @@ const PRESET_CAR_PHOTOS = [
 ];
 
 export const AddVehicleScreen: React.FC<AddVehicleScreenProps> = ({ onAddVehicle, onNavigate }) => {
-  const [make, setMake] = useState('Aston Martin');
-  const [model, setModel] = useState('DB12 Volante');
-  const [year, setYear] = useState('2025');
-  const [color, setColor] = useState('Iridescent Emerald / Tan Nappa');
-  const [finish, setFinish] = useState<FinishType>('Gloss');
-  const [licensePlate, setLicensePlate] = useState('ASTON-007');
-  const [vin, setVin] = useState('SCFDB12V80098271');
-  const [selectedImage, setSelectedImage] = useState(PRESET_CAR_PHOTOS[5].url);
+  const [make, setMake] = useState('');
+const [model, setModel] = useState('');
+const [year, setYear] = useState('');
+const [color, setColor] = useState('');
+const [finish, setFinish] = useState<FinishType>('Gloss');
+const [licensePlate, setLicensePlate] = useState('');
+const [vin, setVin] = useState('');
+const [selectedImage, setSelectedImage] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
   e.preventDefault();
@@ -76,12 +76,21 @@ export const AddVehicleScreen: React.FC<AddVehicleScreenProps> = ({ onAddVehicle
           </label>
 
           <div className="relative h-44 rounded-2xl overflow-hidden border border-[#00C2FF]/50 mb-3 group">
-            <img
-              src={selectedImage}
-              alt="Selected Vehicle Preview"
-              className="w-full h-full object-cover"
-              referrerPolicy="no-referrer"
-            />
+            {selectedImage ? (
+  <img
+    src={selectedImage}
+    alt="Selected Vehicle Preview"
+    className="w-full h-full object-cover"
+    referrerPolicy="no-referrer"
+  />
+) : (
+  <div className="w-full h-full flex flex-col items-center justify-center bg-white/[0.03]">
+    <Car className="w-10 h-10 text-slate-600" />
+    <p className="mt-2 text-xs text-slate-500">
+      Select a vehicle photo
+    </p>
+  </div>
+)}
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-3">
               <span className="text-xs font-mono text-white flex items-center gap-1.5 bg-black/60 px-2.5 py-1 rounded-lg backdrop-blur">
                 <Camera className="w-3.5 h-3.5 text-[#00C2FF]" /> Studio Profile Photo Selected
