@@ -12,15 +12,20 @@ import {
   LogOut,
 } from 'lucide-react';
 import { ScreenId, Vehicle } from '../types';
+import type { AutotricsUser } from '../App';
 
 interface ProfileScreenProps {
   onNavigate: (screen: ScreenId) => void;
   vehicles?: Vehicle[];
+  currentUser: AutotricsUser | null;
+  onLogout: () => void;
 }
 
 export const ProfileScreen: React.FC<ProfileScreenProps> = ({
   onNavigate,
   vehicles = [],
+  currentUser,
+  onLogout,
 }) => {
   const activeBookings = 1;
   const serviceHistory = 0;
@@ -46,12 +51,12 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({
             </p>
 
             <h2 className="mt-1 truncate font-heading text-xl font-extrabold text-white">
-              Rishabh Sehdev
+              {currentUser?.displayName || 'Autotrics Customer'}
             </h2>
 
             <p className="mt-0.5 truncate text-[11px] font-mono text-slate-500">
-              Customer Account
-            </p>
+  {currentUser?.email || 'Customer Account'}
+</p>
           </div>
 
         </div>
@@ -255,7 +260,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({
       {/* Logout */}
       <button
         id="profile-logout-btn"
-        onClick={() => onNavigate('login')}
+        onClick={onLogout}
         className="w-full rounded-2xl border border-rose-500/30 bg-rose-500/[0.03] py-3.5 text-xs font-heading font-bold uppercase tracking-wide text-rose-400 flex items-center justify-center gap-2 transition-all hover:bg-rose-500/10"
       >
         <LogOut className="h-4 w-4" />

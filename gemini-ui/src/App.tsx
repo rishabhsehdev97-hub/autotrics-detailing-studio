@@ -1,8 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { BookingsScreen } from './screens/BookingsScreen';
 import ServiceDetailsScreen from './screens/ServiceDetailsScreen';
 import { VehicleDetailsScreen } from './screens/VehicleDetailsScreen';
+import { Capacitor } from '@capacitor/core';
+import { FirebaseAuthentication } from '@capacitor-firebase/authentication';
+import {
+  onAuthStateChanged,
+  signOut,
+  User as FirebaseWebUser,
+} from 'firebase/auth';
+import { auth } from './lib/firebase';
 
 import {
   ScreenId,
@@ -37,9 +45,101 @@ import { SettingsScreen } from './screens/SettingsScreen';
 import { NotificationsScreen } from './screens/NotificationsScreen';
 import { AdminDashboardScreen } from './screens/AdminDashboardScreen';
 
+export interface AutotricsUser {
+  uid: string;
+  displayName: string;
+  email: string;
+  photoUrl?: string | null;
+}
 export default function App() {
   const [currentScreen, setCurrentScreen] =
-    useState<ScreenId>('login');
+  useState<ScreenId>('login');
+
+const [currentUser, setCurrentUser] =
+  useState<AutotricsUser | null>(null);
+
+const [authLoading, setAuthLoading] = useState(true);
+
+useEffect(() => {
+  let nativeListener: { remove: () => Promise<void> } | null = null;
+  let webUnsubscribe: (() => void) | null = null;
+
+  const loadUser = async () => {
+    try {
+      if (Capacitor.isNativePlatform()) {
+        const result = await FirebaseAuthentication.getCurrentUser();
+
+        if (result.user) {
+          setCurrentUser({
+            uid: result.user.uid,
+            displayName: result.user.displayName || 'Autotrics Customer',
+            email: result.user.email || '',
+            photoUrl: result.user.photoUrl,
+          });
+
+          setCurrentScreen('home');
+        } else {
+          setCurrentUser(null);
+          setCurrentScreen('login');
+        }
+
+        nativeListener = await FirebaseAuthentication.addListener(
+          'authStateChange',
+          (change) => {
+            if (change.user) {
+              setCurrentUser({
+                uid: change.user.uid,
+                displayName:
+                  change.user.displayName || 'Autotrics Customer',
+                email: change.user.email || '',
+                photoUrl: change.user.photoUrl,
+              });
+
+              setCurrentScreen('home');
+            } else {
+              setCurrentUser(null);
+              setCurrentScreen('login');
+            }
+          }
+        );
+      } else {
+        webUnsubscribe = onAuthStateChanged(
+          auth,
+          (user: FirebaseWebUser | null) => {
+            if (user) {
+              setCurrentUser({
+                uid: user.uid,
+                displayName: user.displayName || 'Autotrics Customer',
+                email: user.email || '',
+                photoUrl: user.photoURL,
+              });
+
+              setCurrentScreen('home');
+            } else {
+              setCurrentUser(null);
+              setCurrentScreen('login');
+            }
+          }
+        );
+      }
+    } catch (error) {
+      console.error('Failed to restore Firebase session:', error);
+      setCurrentUser(null);
+      setCurrentScreen('login');
+    } finally {
+      setAuthLoading(false);
+    }
+  };
+
+  loadUser();
+
+  return () => {
+    nativeListener?.remove();
+    webUnsubscribe?.();
+  };
+}, []);
+
+
 
   // =====================================================
   // VEHICLES
@@ -206,6 +306,21 @@ export default function App() {
       handleNavigate('admin');
     }
   };
+
+  if (authLoading) {
+  return (
+    <div className="min-h-screen bg-[#070709] flex items-center justify-center">
+      <div className="text-center">
+        <div className="text-[#00C2FF] font-heading font-bold text-lg">
+          AUTOTRICS
+        </div>
+        <div className="text-slate-500 text-xs mt-2 font-mono">
+          Checking session...
+        </div>
+      </div>
+    </div>
+  );
+}
 
   // =====================================================
   // ACTIVE SCREEN
@@ -391,10 +506,10 @@ export default function App() {
       case 'booking':
   return (
     <BookingScreen
-      vehicles={vehicles}
-      selectedVehicle={selectedVehicle}
-      selectedService={selectedService}
-      onNavigate={handleNavigate}
+  vehicles={vehicles}
+  selectedService={selectedService}
+  currentUser={currentUser}
+  onNavigate={handleNavigate}
             onProceedToPayment={(details) => {
               // Keep booking temporarily in memory
               // until payment succeeds.
@@ -481,9 +596,21 @@ export default function App() {
       case 'profile':
         return (
           <ProfileScreen
-            vehicles={vehicles}
-            onNavigate={handleNavigate}
-          />
+  vehicles={vehicles}
+  currentUser={currentUser}
+  onNavigate={handleNavigate}
+  onLogout={async () => {
+    try {
+      if (Capacitor.isNativePlatform()) {
+        await FirebaseAuthentication.signOut();
+      } else {
+        await signOut(auth);
+      }
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
+  }}
+/>
         );
 
       // -------------------------------------------------

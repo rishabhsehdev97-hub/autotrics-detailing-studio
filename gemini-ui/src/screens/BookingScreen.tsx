@@ -17,11 +17,13 @@ import {
 
 import { BookingDetails, DetailService, ScreenId } from '../types';
 import { PREMIUM_SERVICES } from '../data/mockData';
+import { AutotricsUser } from '../App';
 
 interface BookingScreenProps {
   vehicles?: any[];
   selectedVehicle?: any;
   selectedService?: DetailService;
+  currentUser: AutotricsUser | null;
   onNavigate: (screen: ScreenId) => void;
   onProceedToPayment: (details: BookingDetails) => void;
 }
@@ -82,6 +84,7 @@ const TIME_OPTIONS = [
 export const BookingScreen: React.FC<BookingScreenProps> = ({
   selectedVehicle,
   selectedService,
+  currentUser,
   onNavigate,
   onProceedToPayment,
 }) => {
@@ -89,9 +92,22 @@ export const BookingScreen: React.FC<BookingScreenProps> = ({
   // CUSTOMER DETAILS
   // --------------------------------------------------
 
-  const [customerName, setCustomerName] = useState('');
-  const [customerPhone, setCustomerPhone] = useState('');
-  const [customerEmail, setCustomerEmail] = useState('');
+  const [customerName, setCustomerName] = useState(
+  currentUser?.displayName || ''
+);
+
+const [customerPhone, setCustomerPhone] = useState('');
+
+const [customerEmail, setCustomerEmail] = useState(
+  currentUser?.email || ''
+);
+
+useEffect(() => {
+  if (!currentUser) return;
+
+  setCustomerName(currentUser.displayName || '');
+  setCustomerEmail(currentUser.email || '');
+}, [currentUser]);
 
   // --------------------------------------------------
   // VEHICLE DETAILS
@@ -409,8 +425,8 @@ const [serviceCategory, setServiceCategory] = useState<
               <input
                 type="text"
                 value={customerName}
-                onChange={(e) => setCustomerName(e.target.value)}
-                placeholder="Enter your full name"
+onChange={(e) => setCustomerName(e.target.value)}
+placeholder="Your Google account name"
                 className="
                   w-full
                   rounded-xl
@@ -484,8 +500,8 @@ const [serviceCategory, setServiceCategory] = useState<
                 <input
                   type="email"
                   value={customerEmail}
-                  onChange={(e) => setCustomerEmail(e.target.value)}
-                  placeholder="you@example.com"
+onChange={(e) => setCustomerEmail(e.target.value)}
+placeholder="Your Google account email"
                   className="
                     w-full
                     rounded-xl
