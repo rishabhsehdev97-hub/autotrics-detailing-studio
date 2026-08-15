@@ -113,6 +113,10 @@ useEffect(() => {
   const [selectedServiceIds, setSelectedServiceIds] = useState<string[]>(
     selectedService ? [selectedService.id] : []
   );
+  const [serviceSearch, setServiceSearch] = useState('');
+const [serviceCategory, setServiceCategory] = useState<
+  'All' | 'Protection' | 'Correction' | 'Detailing' | 'Maintenance'
+>('All');
 
   // --------------------------------------------------
   // ADD-ONS
@@ -166,6 +170,23 @@ useEffect(() => {
       selectedServiceIds.includes(service.id)
     );
   }, [selectedServiceIds]);
+  const filteredServices = useMemo(() => {
+  const search = serviceSearch.trim().toLowerCase();
+
+  return PREMIUM_SERVICES.filter((service) => {
+    const matchesCategory =
+      serviceCategory === 'All' ||
+      service.category === serviceCategory;
+
+    const matchesSearch =
+      search.length === 0 ||
+      service.name.toLowerCase().includes(search) ||
+      service.tagline.toLowerCase().includes(search) ||
+      service.description.toLowerCase().includes(search);
+
+    return matchesCategory && matchesSearch;
+  });
+}, [serviceSearch, serviceCategory]);
 
   // --------------------------------------------------
   // SELECTED ADD-ONS
@@ -229,7 +250,7 @@ useEffect(() => {
     const details: BookingDetails = {
 
       vehicleId: selectedVehicle?.id,
-      
+
       customerName: customerName.trim(),
       customerPhone: customerPhone.trim(),
       customerEmail: customerEmail.trim(),
@@ -732,110 +753,202 @@ useEffect(() => {
           </p>
 
 
-          <div className="grid grid-cols-1 gap-2.5">
+          {/* Search */}
+<div className="relative">
+  <input
+    type="text"
+    value={serviceSearch}
+    onChange={(e) => setServiceSearch(e.target.value)}
+    placeholder="Search services..."
+    className="
+      w-full
+      rounded-xl
+      border border-white/10
+      bg-white/[0.04]
+      px-3
+      py-3
+      text-xs
+      text-white
+      placeholder:text-slate-600
+      outline-none
+      focus:border-[#00C2FF]/60
+    "
+  />
+</div>
 
-            {PREMIUM_SERVICES.map((service) => {
+{/* Categories */}
+<div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
+  {(
+    [
+      'All',
+      'Protection',
+      'Correction',
+      'Detailing',
+      'Maintenance',
+    ] as const
+  ).map((category) => (
+    <button
+      key={category}
+      type="button"
+      onClick={() => setServiceCategory(category)}
+      className={`
+        flex-shrink-0
+        rounded-full
+        border
+        px-3
+        py-2
+        text-[9px]
+        font-mono
+        font-bold
+        uppercase
+        tracking-wider
+        transition-all
+        ${
+          serviceCategory === category
+            ? 'border-[#00C2FF] bg-[#00C2FF] text-black'
+            : 'border-white/10 bg-white/[0.03] text-slate-400 hover:border-[#00C2FF]/40 hover:text-white'
+        }
+      `}
+    >
+      {category}
+    </button>
+  ))}
+</div>
 
-              const isSelected = selectedServiceIds.includes(service.id);
+{/* Results count */}
+<div className="flex items-center justify-between">
+  <span className="text-[9px] font-mono uppercase tracking-widest text-slate-600">
+    {filteredServices.length} Services Available
+  </span>
 
-              return (
-                <button
-                  key={service.id}
-                  type="button"
-                  onClick={() => toggleService(service.id)}
-                  className={`
-                    w-full
-                    rounded-2xl
-                    border
-                    p-3
-                    text-left
-                    transition-all
-                    ${
-                      isSelected
-                        ? 'border-[#00C2FF] bg-[#00C2FF]/10 shadow-[0_0_20px_rgba(0,194,255,0.08)]'
-                        : 'border-white/10 bg-white/[0.03] hover:border-[#00C2FF]/40'
-                    }
-                  `}
-                >
+  {serviceSearch && (
+    <button
+      type="button"
+      onClick={() => setServiceSearch('')}
+      className="text-[9px] font-mono uppercase tracking-widest text-[#00C2FF]"
+    >
+      Clear Search
+    </button>
+  )}
+</div>
 
-                  <div className="flex items-center justify-between gap-3">
+{/* Service Cards */}
+<div className="grid grid-cols-1 gap-2.5">
 
-                    <div className="flex items-center gap-3 min-w-0">
+  {filteredServices.length === 0 ? (
+    <div className="rounded-2xl border border-dashed border-white/10 p-6 text-center">
+      <Sparkles className="mx-auto mb-2 h-5 w-5 text-slate-600" />
 
-                      <div
-                        className={`
-                          w-9
-                          h-9
-                          rounded-xl
-                          flex
-                          items-center
-                          justify-center
-                          flex-shrink-0
-                          border
-                          ${
-                            isSelected
-                              ? 'bg-[#00C2FF] border-[#00C2FF] text-black'
-                              : 'bg-[#00C2FF]/10 border-[#00C2FF]/30 text-[#00C2FF]'
-                          }
-                        `}
-                      >
-                        {isSelected ? (
-                          <Check className="w-4 h-4" />
-                        ) : (
-                          <Sparkles className="w-4 h-4" />
-                        )}
-                      </div>
+      <p className="text-xs font-bold text-slate-400">
+        No services found
+      </p>
 
+      <p className="mt-1 text-[9px] text-slate-600">
+        Try another search or category.
+      </p>
+    </div>
+  ) : (
+    filteredServices.map((service) => {
+      const isSelected = selectedServiceIds.includes(service.id);
 
-                      <div className="min-w-0">
+      return (
+        <button
+          key={service.id}
+          type="button"
+          onClick={() => toggleService(service.id)}
+          className={`
+            w-full
+            rounded-2xl
+            border
+            p-3
+            text-left
+            transition-all
+            ${
+              isSelected
+                ? 'border-[#00C2FF] bg-[#00C2FF]/10 shadow-[0_0_20px_rgba(0,194,255,0.08)]'
+                : 'border-white/10 bg-white/[0.03] hover:border-[#00C2FF]/40'
+            }
+          `}
+        >
+          <div className="flex items-center justify-between gap-3">
 
-                        <h3 className="text-xs font-heading font-extrabold text-white">
-                          {service.name}
-                        </h3>
+            <div className="flex items-center gap-3 min-w-0">
 
-                        <p className="mt-0.5 text-[10px] text-slate-500 truncate">
-                          {service.tagline}
-                        </p>
+              <div
+                className={`
+                  w-9
+                  h-9
+                  rounded-xl
+                  flex
+                  items-center
+                  justify-center
+                  flex-shrink-0
+                  border
+                  ${
+                    isSelected
+                      ? 'bg-[#00C2FF] border-[#00C2FF] text-black'
+                      : 'bg-[#00C2FF]/10 border-[#00C2FF]/30 text-[#00C2FF]'
+                  }
+                `}
+              >
+                {isSelected ? (
+                  <Check className="w-4 h-4" />
+                ) : (
+                  <Sparkles className="w-4 h-4" />
+                )}
+              </div>
 
-                      </div>
+              <div className="min-w-0">
 
-                    </div>
+                <h3 className="text-xs font-heading font-extrabold text-white">
+                  {service.name}
+                </h3>
 
+                <p className="mt-0.5 text-[10px] text-slate-500 truncate">
+                  {service.tagline}
+                </p>
 
-                    <div className="text-right flex-shrink-0">
+                <span className="inline-block mt-1 text-[8px] font-mono uppercase tracking-widest text-[#00C2FF]/70">
+                  {service.category}
+                </span>
 
-                      <p className="text-[8px] font-mono uppercase tracking-widest text-slate-600">
-                        Starting
-                      </p>
+              </div>
+            </div>
 
-                      <p className="mt-0.5 text-sm font-black text-white">
-                        ₹{service.price.toLocaleString('en-IN')}
-                      </p>
+            <div className="text-right flex-shrink-0">
 
-                    </div>
+              <p className="text-[8px] font-mono uppercase tracking-widest text-slate-600">
+                Starting
+              </p>
 
-                  </div>
+              <p className="mt-0.5 text-sm font-black text-white">
+                ₹{service.price.toLocaleString('en-IN')}
+              </p>
 
-
-                  {isSelected && (
-                    <div className="mt-2 pt-2 border-t border-[#00C2FF]/20 flex items-center justify-between">
-
-                      <span className="text-[8px] font-mono uppercase tracking-widest text-[#00C2FF]">
-                        Selected
-                      </span>
-
-                      <span className="text-[9px] text-slate-500">
-                        {service.durationHours}h studio service
-                      </span>
-
-                    </div>
-                  )}
-
-                </button>
-              );
-            })}
+            </div>
 
           </div>
+
+          {isSelected && (
+            <div className="mt-2 pt-2 border-t border-[#00C2FF]/20 flex items-center justify-between">
+
+              <span className="text-[8px] font-mono uppercase tracking-widest text-[#00C2FF]">
+                Selected
+              </span>
+
+              <span className="text-[9px] text-slate-500">
+                {service.durationHours}h studio service
+              </span>
+
+            </div>
+          )}
+
+        </button>
+      );
+    })
+  )}
+
+</div>
 
         </div>
 
