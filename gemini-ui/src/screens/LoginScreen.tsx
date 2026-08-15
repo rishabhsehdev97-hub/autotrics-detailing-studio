@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import carLogo from "../assets/autotrics_car_logo.svg";
+const carLogo = new URL("../assets/autotrics_car_logo.svg", import.meta.url).href;
 import {
   GoogleAuthProvider,
   signInWithPopup,
+  signInWithCredential,
 } from "firebase/auth";
+import { FirebaseAuthentication } from "@capacitor-firebase/authentication";
+import { Capacitor } from "@capacitor/core";
 
 import { auth } from "../lib/firebase";
 
@@ -38,23 +41,31 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onNavigate }) => {
   };
   const handleGoogleLogin = async () => {
   try {
-    const provider = new GoogleAuthProvider();
+    if (Capacitor.isNativePlatform()) {
+      const result = await FirebaseAuthentication.signInWithGoogle();
 
+      console.log("Native Google login:", result);
+
+      onNavigate("home");
+      return;
+    }
+
+    const provider = new GoogleAuthProvider();
     const result = await signInWithPopup(auth, provider);
 
-    console.log("Logged in:", result.user);
+    console.log("Web Google login:", result.user);
 
     onNavigate("home");
-  } catch (error) {
-    console.error("Google Sign In Error:", error);
-    alert("Google Sign-In failed.");
+  } catch (error: any) {
+  console.error("Google Sign In Error:", error);
+
+  alert(
+      `Google Sign-In Error:\n${
+        error?.message || error?.code || JSON.stringify(error)
+      }`
+    );
   }
 };
-
-  const handleLoginSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onNavigate('otp');
-  };
 
   return (
 

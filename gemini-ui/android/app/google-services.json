@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "389008528075",
+    "project_id": "autotrics-studio",
+    "storage_bucket": "autotrics-studio.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:389008528075:android:b8b285e349ad2918a8c14e",
+        "android_client_info": {
+          "package_name": "com.autotrics.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "389008528075-b9q8hnujlf6r9e6uofn1h0n6ad1tntjh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAj8NyJDkgOkiOPb7Nz06yJTwNEDiknoo0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "389008528075-b9q8hnujlf6r9e6uofn1h0n6ad1tntjh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
