@@ -3,8 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { BookingsScreen } from './screens/BookingsScreen';
 import ServiceDetailsScreen from './screens/ServiceDetailsScreen';
 import { VehicleDetailsScreen } from './screens/VehicleDetailsScreen';
-import { Capacitor } from '@capacitor/core';
-import { FirebaseAuthentication } from '@capacitor-firebase/authentication';
 import {
   onAuthStateChanged,
   signOut,
@@ -61,81 +59,33 @@ const [currentUser, setCurrentUser] =
 const [authLoading, setAuthLoading] = useState(true);
 
 useEffect(() => {
-  let nativeListener: { remove: () => Promise<void> } | null = null;
-  let webUnsubscribe: (() => void) | null = null;
+  const unsubscribe = onAuthStateChanged(
+    auth,
+    (user: FirebaseWebUser | null) => {
+      if (user) {
+        
 
-  const loadUser = async () => {
-    try {
-      if (Capacitor.isNativePlatform()) {
-        const result = await FirebaseAuthentication.getCurrentUser();
+        setCurrentUser({
+          uid: user.uid,
+          displayName: user.displayName || 'Autotrics Customer',
+          email: user.email || '',
+          photoUrl: user.photoURL,
+        });
 
-        if (result.user) {
-          setCurrentUser({
-            uid: result.user.uid,
-            displayName: result.user.displayName || 'Autotrics Customer',
-            email: result.user.email || '',
-            photoUrl: result.user.photoUrl,
-          });
-
-          setCurrentScreen('home');
-        } else {
-          setCurrentUser(null);
-          setCurrentScreen('login');
-        }
-
-        nativeListener = await FirebaseAuthentication.addListener(
-          'authStateChange',
-          (change) => {
-            if (change.user) {
-              setCurrentUser({
-                uid: change.user.uid,
-                displayName:
-                  change.user.displayName || 'Autotrics Customer',
-                email: change.user.email || '',
-                photoUrl: change.user.photoUrl,
-              });
-
-              setCurrentScreen('home');
-            } else {
-              setCurrentUser(null);
-              setCurrentScreen('login');
-            }
-          }
-        );
+        setCurrentScreen('home');
       } else {
-        webUnsubscribe = onAuthStateChanged(
-          auth,
-          (user: FirebaseWebUser | null) => {
-            if (user) {
-              setCurrentUser({
-                uid: user.uid,
-                displayName: user.displayName || 'Autotrics Customer',
-                email: user.email || '',
-                photoUrl: user.photoURL,
-              });
+        
 
-              setCurrentScreen('home');
-            } else {
-              setCurrentUser(null);
-              setCurrentScreen('login');
-            }
-          }
-        );
+        setCurrentUser(null);
+        setCurrentScreen('login');
       }
-    } catch (error) {
-      console.error('Failed to restore Firebase session:', error);
-      setCurrentUser(null);
-      setCurrentScreen('login');
-    } finally {
+
       setAuthLoading(false);
     }
-  };
-
-  loadUser();
+  );
 
   return () => {
-    nativeListener?.remove();
-    webUnsubscribe?.();
+    unsubscribe();
   };
 }, []);
 
@@ -594,24 +544,21 @@ useEffect(() => {
       // -------------------------------------------------
 
       case 'profile':
-        return (
-          <ProfileScreen
-  vehicles={vehicles}
-  currentUser={currentUser}
-  onNavigate={handleNavigate}
-  onLogout={async () => {
-    try {
-      if (Capacitor.isNativePlatform()) {
-        await FirebaseAuthentication.signOut();
-      } else {
-        await signOut(auth);
-      }
-    } catch (error) {
-      console.error('Logout failed:', error);
-    }
-  }}
-/>
-        );
+  return (
+    <ProfileScreen
+      vehicles={vehicles}
+      currentUser={currentUser}
+      onNavigate={handleNavigate}
+      onLogout={async () => {
+        try {
+          await signOut(auth);
+        } catch (error) {
+          console.error('Logout failed:', error);
+        }
+      }}
+    />
+  );
+      
 
       // -------------------------------------------------
       // SETTINGS

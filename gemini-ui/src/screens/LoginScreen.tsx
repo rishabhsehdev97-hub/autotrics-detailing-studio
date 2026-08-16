@@ -42,18 +42,36 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onNavigate }) => {
   const handleGoogleLogin = async () => {
   try {
     if (Capacitor.isNativePlatform()) {
-      const result = await FirebaseAuthentication.signInWithGoogle();
+  const result = await FirebaseAuthentication.signInWithGoogle({
+    skipNativeAuth: true,
+  });
 
-      console.log("Native Google login:", result);
+  
+  const idToken = result.credential?.idToken;
 
-      onNavigate("home");
-      return;
-    }
+  if (!idToken) {
+    throw new Error("Google Sign-In succeeded but no ID token was returned.");
+  }
+
+  const credential = GoogleAuthProvider.credential(idToken);
+
+  const webAuthResult = await signInWithCredential(auth, credential);
+
+  
+  if (!auth.currentUser) {
+    throw new Error("Firebase JS Auth login failed.");
+  }
+
+  
+
+  onNavigate("home");
+  return;
+}
 
     const provider = new GoogleAuthProvider();
     const result = await signInWithPopup(auth, provider);
 
-    console.log("Web Google login:", result.user);
+    
 
     onNavigate("home");
   } catch (error: any) {

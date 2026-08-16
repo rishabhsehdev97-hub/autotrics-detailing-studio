@@ -18,6 +18,8 @@ import {
 import { BookingDetails, DetailService, ScreenId } from '../types';
 import { PREMIUM_SERVICES } from '../data/mockData';
 import { AutotricsUser } from '../App';
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+import { auth, db } from '../lib/firebase';
 
 interface BookingScreenProps {
   vehicles?: any[];
@@ -265,21 +267,61 @@ const [serviceCategory, setServiceCategory] = useState<
   // SUBMIT
   // --------------------------------------------------
 
-  const handleBookingSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleBookingSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
 
-    if (!isValid) {
-      return;
-    }
+  if (!isValid) {
+    return;
+  }
 
-    const details: BookingDetails = {
+  if (!currentUser?.uid) {
+    alert('Please log in again before making a booking.');
+    onNavigate('login');
+    return;
+  }
 
-      vehicleId: selectedVehicle?.id,
+  const details: BookingDetails = {
+    vehicleId: selectedVehicle?.id,
+
+    customerName: customerName.trim(),
+    customerPhone: customerPhone.trim(),
+    customerEmail: customerEmail.trim(),
+
+    vehicleMake: vehicleMake.trim(),
+    vehicleModel: vehicleModel.trim(),
+    vehicleYear: Number(vehicleYear),
+    vehicleRegistration: vehicleRegistration.trim().toUpperCase(),
+    vehicleColor: vehicleColor.trim(),
+
+    serviceIds: selectedServiceIds,
+    addonIds: selectedAddonIds,
+
+    deliveryMethod,
+    date: selectedDate,
+    timeSlot: selectedTimeSlot,
+
+    valetAddress:
+      deliveryMethod === 'Valet Enclosed Transport'
+        ? valetAddress.trim()
+        : undefined,
+
+    specialInstructions: specialInstructions.trim() || undefined,
+
+    totalAmount,
+  };
+
+  try {
+
+    
+
+    const bookingRef = await addDoc(collection(db, 'bookings'), {
+      userId: currentUser.uid,
 
       customerName: customerName.trim(),
-      customerPhone: customerPhone.trim(),
       customerEmail: customerEmail.trim(),
+      customerPhone: customerPhone.trim(),
 
+      vehicleId: selectedVehicle?.id || null,
       vehicleMake: vehicleMake.trim(),
       vehicleModel: vehicleModel.trim(),
       vehicleYear: Number(vehicleYear),
@@ -296,16 +338,30 @@ const [serviceCategory, setServiceCategory] = useState<
       valetAddress:
         deliveryMethod === 'Valet Enclosed Transport'
           ? valetAddress.trim()
-          : undefined,
+          : null,
 
-      specialInstructions: specialInstructions.trim() || undefined,
+      specialInstructions:
+        specialInstructions.trim() || null,
 
       totalAmount,
-    };
+
+      status: 'pending_payment',
+
+      createdAt: serverTimestamp(),
+    });
+
+    
 
     onProceedToPayment(details);
     onNavigate('payment');
-  };
+  } catch (error) {
+    console.error('Booking creation failed:', error);
+
+    alert(
+      'Unable to save your booking right now. Please check your internet connection and try again.'
+    );
+  }
+};
 
   return (
     <div className="w-full px-4 pt-3 pb-28 space-y-5">
